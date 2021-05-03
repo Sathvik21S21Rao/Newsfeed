@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+          background-image: "{% static 'newspaper.jpg' %}";
+        }
+      </style>
+    <body>
+        {% block content %}
+        {% endblock content%}
+    </body>
+</html>
