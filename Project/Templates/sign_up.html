@@ -1,3 +1,141 @@
-{% extends "base.html" %} {% block content %}
-<b>Result.....</b>
+{% extends "base.html" %} {% block content %} {% load static %}
+<html>
+  <style>
+    body {
+      background-image: url("{% static 'background.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: max-content;
+      margin: 0px;
+      padding: 0px;
+    }
+    .header {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: grey;
+      color: white;
+      width: fit-content;
+      height: fit-content;
+      padding: 10px;
+    }
+    .root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .signupform {
+      font-size: large;
+      color: white;
+      width: fit-content;
+      padding: 20px;
+    }
+    .text {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid #4caf50;
+    }
+    .text input {
+      border: none;
+      outline: none;
+      background: none;
+      color: white;
+    }
+    .dropdown {
+      background-color: gray;
+      border-radius: 10px;
+      font-size: medium;
+      color: white;
+    }
+    .button {
+      background-color: gray;
+      font-size: larger;
+      color: white;
+    }
+  </style>
+  <body>
+    <div class="header">
+      <b>Sign up page</b>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="root">
+      <div class="signupform">
+        <form action="genres" method="POST">
+          {% csrf_token %}
+
+          <p>Please fill this form to create account</p>
+          <label for="username"><b>Username</b></label>
+          <div class="text">
+            <input
+              type="text"
+              placeholder="Enter username"
+              size="30"
+              name="username"
+              required
+            />
+          </div>
+          <br />
+          <br />
+          <label for="psw"><b>Password</b></label>
+          <div class="text">
+            <input
+              type="password"
+              placeholder="Enter password"
+              size="30"
+              name="psw"
+              required
+            />
+          </div>
+          <br />
+          <br />
+          <label for="pswr"><b>Confirm Password</b></label>
+          <div class="text">
+            <input
+              type="password"
+              placeholder="Confirm password"
+              size="30"
+              name="pswr"
+              required
+            />
+          </div>
+          <br />
+
+          <select class="dropdown" required>
+            <option value="" selected disabled hidden>Select Location</option>
+            <option value="Australia">Australia</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Canada">Canada</option>
+            <option value="China">China</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Greece">Greece</option>
+            <option value="India">India</option>
+            <option value="Italy">Italy</option>
+            <option value="Japan">Japan</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="Russia">Russia</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Singapore">Singapore</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="United States">United States</option>
+          </select>
+          <br />
+          <br />
+          <button class="button" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
 {% endblock content%}

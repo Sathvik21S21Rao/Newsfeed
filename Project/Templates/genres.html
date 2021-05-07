@@ -1,0 +1,40 @@
+{% load static %}
+<html>
+  <style>
+    body {
+      background-image: url("{% static 'background.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: max-content;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .Select {
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+      color: white;
+    }
+  </style>
+  <body>
+    <p>Select the genres you are interested in:</p>
+    <div class="Select">
+      Sports<input type="checkbox" />
+
+      Business<input type="checkbox" />
+
+      Health<input type="checkbox" />
+
+      Entertainment<input type="checkbox" />
+
+      Science<input type="checkbox" />
+
+      Technology<input type="checkbox" />
+
+      Business<input type="checkbox" />
+
+      <br />
+    </div>
+  </body>
+</html>
