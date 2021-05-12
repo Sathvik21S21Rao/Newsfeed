@@ -1,5 +1,52 @@
 {% load static %}
 <html>
+  <head>
+    <script type="text/javascript">
+      function chk(j) {
+        var total = 0;
+        if (document.form1.Sports.checked) {
+          total += 1;
+        }
+        if (document.form1.Business.checked) {
+          total += 1;
+        }
+        if (document.form1.Health.checked) {
+          total += 1;
+        }
+        if (document.form1.Entertainment.checked) {
+          total += 1;
+        }
+        if (document.form1.Science.checked) {
+          total += 1;
+        }
+        if (document.form1.Technology.checked) {
+          total += 1;
+        }
+        if (document.form1.Nation.checked) {
+          total += 1;
+        }
+        if (total == 5) {
+          alert("Maximum number of choices is 4");
+          if (j == 0) {
+            document.form1.Sports.checked = false;
+          } else if (j == 1) {
+            document.form1.Business.checked = false;
+          } else if (j == 2) {
+            document.form1.Health.checked = false;
+          } else if (j == 3) {
+            document.form1.Entertainment.checked = false;
+          } else if (j == 4) {
+            document.form1.Science.checked = false;
+          } else if (j == 5) {
+            document.form1.Technology.checked = false;
+          } else {
+            document.form1.Nation.checked = false;
+          }
+          return false;
+        }
+      }
+    </script>
+  </head>
   <style>
     body {
       background-image: url("{% static 'background.jpg' %}");
@@ -15,6 +62,8 @@
       align-items: center;
       justify-content: center;
       color: white;
+      font-size: xx-large;
+      font-style: italic;
     }
 
     .Select {
@@ -22,28 +71,53 @@
       justify-content: center;
       height: fit-content;
       color: white;
+      font-size: x-large;
+      font-style: normal;
     }
   </style>
   <body>
     <div class="main">
-      <p>Select the genres you are interested in:</p>
-      <div class="Select">
-        Sports<input type="checkbox" />
-        <hr />
-        Business<input type="checkbox" />
-        <hr />
-        Health<input type="checkbox" />
-        <hr />
-        Entertainment<input type="checkbox" />
-        <hr />
-        Science<input type="checkbox" />
-        <hr />
-        Technology<input type="checkbox" />
-        <hr />
-        Business<input type="checkbox" />
+      <p>Select your favourite genres</p>
+      <form action="home" name="form1" method="post">
+        {% csrf_token %}
 
-        <br />
-      </div>
+        <div class="Select">
+          <input type="checkbox" name="Sports" onclick="chk(0)" />Sports
+          <hr />
+          <input type="checkbox" name="Business" onclick="chk(1)" />Business
+          <hr />
+          <input
+            value="2"
+            type="checkbox"
+            name="Health"
+            onclick="chk(2)"
+          />Health
+          <hr />
+          <input
+            type="checkbox"
+            name="Entertainment"
+            onclick="chk(3)"
+          />Entertainment
+          <hr />
+          <input type="checkbox" name="Science" onclick="chk(4)" />Science
+          <hr />
+          <input
+            type="checkbox"
+            value="chk(5)"
+            name="Technology"
+            onclick="chk(5)"
+          />Technology
+          <hr />
+          <input type="checkbox" name="Nation" onclick="chk(6)" />Nation
+          <hr />
+
+          <br />
+          <button class="button" type="submit">Next</button>
+          {% for i in messages %}
+          <b>{{i}}</b>
+          {% endfor %}
+        </div>
+      </form>
     </div>
   </body>
 </html>

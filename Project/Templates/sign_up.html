@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %} {% load static %}
+{% load static %}
 <html>
   <head>
     <link
@@ -81,11 +81,11 @@
     <br />
     <div class="root">
       <div class="signupform">
-        <form action="genres" method="POST">
+        <form action="genres" method="post">
           {% csrf_token %}
 
           <p>Please fill this form to create account</p>
-          <label for="username"><b>Username</b></label>
+          <label><b>Username</b></label>
           <div class="text">
             <i class="fa fa-user"></i>
             <input
@@ -98,7 +98,7 @@
           </div>
           <br />
           <br />
-          <label for="psw"><b>Password</b></label>
+          <label><b>Password</b></label>
           <div class="text">
             <i class="fa fa-key"></i>
             <input
@@ -111,8 +111,9 @@
           </div>
           <br />
           <br />
-          <label for="pswr"><b>Confirm Password</b></label>
+          <label><b>Confirm Password</b></label>
           <div class="text">
+            <i class="fa fa-key"></i>
             <input
               type="password"
               placeholder="Confirm password"
@@ -124,7 +125,7 @@
           <br />
           <i class="fa fa-globe"></i>
 
-          <select class="dropdown" required>
+          <select class="dropdown" name="location" required>
             <option value="" selected disabled hidden>Select Location</option>
             <option value="Australia">Australia</option>
             <option value="Brazil">Brazil</option>
@@ -149,8 +150,12 @@
           <br />
           <button class="button" type="submit">Submit</button>
         </form>
+        <div>
+          {% for i in messages %}
+          <b>{{i}}</b>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </body>
 </html>
-{% endblock content%}
