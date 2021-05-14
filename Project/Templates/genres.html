@@ -1,49 +1,29 @@
 {% load static %}
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript">
       function chk(j) {
         var total = 0;
-        if (document.form1.Sports.checked) {
-          total += 1;
-        }
-        if (document.form1.Business.checked) {
-          total += 1;
-        }
-        if (document.form1.Health.checked) {
-          total += 1;
-        }
-        if (document.form1.Entertainment.checked) {
-          total += 1;
-        }
-        if (document.form1.Science.checked) {
-          total += 1;
-        }
-        if (document.form1.Technology.checked) {
-          total += 1;
-        }
-        if (document.form1.Nation.checked) {
-          total += 1;
-        }
-        if (total == 5) {
-          alert("Maximum number of choices is 4");
-          if (j == 0) {
-            document.form1.Sports.checked = false;
-          } else if (j == 1) {
-            document.form1.Business.checked = false;
-          } else if (j == 2) {
-            document.form1.Health.checked = false;
-          } else if (j == 3) {
-            document.form1.Entertainment.checked = false;
-          } else if (j == 4) {
-            document.form1.Science.checked = false;
-          } else if (j == 5) {
-            document.form1.Technology.checked = false;
-          } else {
-            document.form1.Nation.checked = false;
+        var a = [
+          document.form1.Sports,
+          document.form1.Business,
+          document.form1.Health,
+          document.form1.Entertainment,
+          document.form1.Science,
+          document.form1.Technology,
+          document.form1.Nation,
+        ];
+        for (i = 0; i < 7; i++) {
+          if (a[i].checked) {
+            total += 1;
           }
-          return false;
         }
+        if (total > 4) {
+          alert("Maximum number of choices is 4");
+          a[j].checked = false;
+        }
+        return false;
       }
     </script>
   </head>
@@ -113,9 +93,7 @@
 
           <br />
           <button class="button" type="submit">Next</button>
-          {% for i in messages %}
-          <b>{{i}}</b>
-          {% endfor %}
+          <br />
         </div>
       </form>
     </div>

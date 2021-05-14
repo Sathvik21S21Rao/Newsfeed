@@ -1,5 +1,18 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+import requests
+def emailverifier(email):
+        
+    
+    response = requests.get(
+        "https://isitarealemail.com/api/email/validate",
+        params = {'email': email})
+
+    status = response.json()['status']
+    if status=="valid":
+        return True
+    else:
+        return False
 def response(request):
     return render(request,'login.html')
 def sign_up(request):
@@ -10,13 +23,19 @@ def genres(request):
         username=request.POST['username']
         password=request.POST['psw']
         confirm=request.POST['pswr']
+        email=request.POST['email']
         loc=request.POST['location']
         if password!=confirm:
-            messages.info(request,'Password does not match confirm')
+            messages.error(request,'Password does not match confirm')
             return redirect('/sign_up')
+        if emailverifier(email)==False:
+            messages.error(request,email+"Email does not exist")
+            return redirect('/sign_up')
+        
+
     except:
         pass
-
+ 
 
     return render(request,'genres.html')
 def home(request):
@@ -34,7 +53,6 @@ def home(request):
         if d[i]:
             break
     else:
-        messages.info(request,'Choose atleast one genre')
         return redirect('/genres')
     
    

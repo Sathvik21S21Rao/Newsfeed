@@ -1,6 +1,7 @@
 {% load static %}
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
@@ -77,8 +78,7 @@
     <br />
     <br />
     <br />
-    <br />
-    <br />
+
     <div class="root">
       <div class="signupform">
         <form action="genres" method="post">
@@ -96,6 +96,20 @@
               required
             />
           </div>
+          <br />
+          <br />
+          <label><b>Email</b></label>
+          <div class="text">
+            <i class="fa fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Enter email"
+              size="30"
+              name="email"
+              required
+            />
+          </div>
+
           <br />
           <br />
           <label><b>Password</b></label>
@@ -150,12 +164,14 @@
           <br />
           <button class="button" type="submit">Submit</button>
         </form>
-        <div>
-          {% for i in messages %}
-          <b>{{i}}</b>
-          {% endfor %}
-        </div>
       </div>
+    </div>
+    <div>
+      {% if messages %} {% for message in messages %} {% if message.tags %}
+      <script>
+        alert("{{ message }}");
+      </script>
+      {% endif %} {% endfor %} {% endif %}
     </div>
   </body>
 </html>
