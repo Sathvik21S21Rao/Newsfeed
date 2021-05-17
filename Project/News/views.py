@@ -29,7 +29,7 @@ def genres(request):
             messages.error(request,'Password does not match confirm')
             return redirect('/sign_up')
         if emailverifier(email)==False:
-            messages.error(request,email+"Email does not exist")
+            messages.error(request,email+" does not exist")
             return redirect('/sign_up')
         
 

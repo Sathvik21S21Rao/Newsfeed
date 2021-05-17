@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
@@ -13,11 +13,12 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <title>MAIN PAGE</title>
     <style>
       .taskbar {
-        width: auto;
+       
         background-color: red;
       }
       .taskbar a {
@@ -31,11 +32,13 @@
         height: auto;
         width: fit-content;
         position: relative;
+        
       }
       .opt {
         height: auto;
         width: fit-content;
         position: relative;
+        padding: 0 20px;
       }
       .drpbtn {
         background-color: red;
@@ -90,7 +93,7 @@
         transform-origin: top;
         transition: 0.256s;
         width: fit-content;
-        height: 150px;
+        height: 200px;
         overflow-y: auto;
         overflow-x: hidden;
       }
@@ -138,17 +141,23 @@
         align-self: left;
       }
       .search {
-        padding: 10px 5px;
+        padding: 10px 20px;
+        
       }
       .search input {
         font-size: large;
         border-radius: 8px;
+    
+        
+
       }
       .list {
         display: flex;
         flex-direction: row;
-        margin: 0;
-        padding: 0 10px;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin:0;
+        padding: 0;
         list-style-type: none;
       }
     
@@ -163,13 +172,12 @@
         color: pink;
         background-color: red;
       }
-      li:last-child{
-           float:inline-end;
-      }
+     
     </style>
   </head>
   <body>
-    <div class="taskbar">
+    <div class="taskbar" id="menu">
+      <nav>
       <ul class="list" id="menu">
         <li><a href="#home">Home</a></li>
 
@@ -218,6 +226,7 @@
       </li>
     </div>
   </ul>
+</nav>
   
 
     <script>

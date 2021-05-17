@@ -1,6 +1,7 @@
 {% load static %}
 <html>
   <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -12,6 +13,22 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-danger alert-dismissible fade show"  style="color: red;"> 
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        {{msg.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: red;">&times;</button>
+      </div>
+    {% endfor %}
+  {% endif %}
+ 
+ 
   </head>
   <style>
     body {
@@ -75,9 +92,7 @@
     <div class="header">
       <b>Sign up page</b>
     </div>
-    <br />
-    <br />
-    <br />
+    <br> <br> <br>
 
     <div class="root">
       <div class="signupform">
@@ -97,7 +112,7 @@
             />
           </div>
           <br />
-          <br />
+          <br>
           <label><b>Email</b></label>
           <div class="text">
             <i class="fa fa-envelope"></i>
@@ -111,7 +126,7 @@
           </div>
 
           <br />
-          <br />
+          <br>
           <label><b>Password</b></label>
           <div class="text">
             <i class="fa fa-key"></i>
@@ -124,7 +139,7 @@
             />
           </div>
           <br />
-          <br />
+          <br>
           <label><b>Confirm Password</b></label>
           <div class="text">
             <i class="fa fa-key"></i>
@@ -161,17 +176,12 @@
             <option value="United States">United States</option>
           </select>
           <br />
-          <br />
+          <br>
           <button class="button" type="submit">Submit</button>
         </form>
       </div>
     </div>
-    <div>
-      {% if messages %} {% for message in messages %} {% if message.tags %}
-      <script>
-        alert("{{ message }}");
-      </script>
-      {% endif %} {% endfor %} {% endif %}
+
     </div>
   </body>
 </html>
