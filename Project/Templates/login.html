@@ -1,4 +1,4 @@
-{% extends "base.html"%} {% block content %} {% load static %}
+{% load static %}
 
 <html>
   <head>
@@ -13,6 +13,20 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-danger alert-dismissible fade show"  style="color: red;"> 
+      
+        {{msg.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: red;">&times;</button>
+      </div>
+    {% endfor %}
+  {% endif %}
   </head>
   <style>
     html,
@@ -37,6 +51,7 @@
       width: fit-content;
       padding: 20px;
       font-size: large;
+      
     }
     .header {
       margin: auto;
@@ -59,6 +74,7 @@
       border: none;
       outline: none;
       background: none;
+      color:white;
     }
   </style>
   <body>
@@ -67,12 +83,12 @@
     </div>
     <br />
     <br />
-    <br />
-    <br />
-    <br />
+    
+
     <div class="pageRoot">
       <div class="loginForm">
-        <form action="" method="post">
+        <form action="home" method="post">
+          {% csrf_token %}
           <div class="container">
             <br />
             <br />
@@ -106,11 +122,10 @@
           </div>
         </form>
         <div class="container" style="text-align: right">
-          <form action="sign_up" method="post">
-            {% csrf_token %}
+         
             <div class="container" style="text-align: center">
               <b>Not signed up? Create an account</b>
-              <button type="submit">Sign up</button>
+              <a href="/sign_up">Sign Up</a>
             </div>
           </form>
         </div>
@@ -118,4 +133,3 @@
     </div>
   </body>
 </html>
-{% endblock content %}
