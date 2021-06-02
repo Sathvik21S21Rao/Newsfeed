@@ -19,18 +19,38 @@ def emailverifier(email):
 def response(request):
     return render(request,'login.html')
 def login(request):
-    username=request.POST['uname']
-    password=request.POST['psw']
-    user= auth.authenticate(username=username,password=password)
-    if user:
-        auth.login(request,user)
+    global USER
+    try:
+        username=request.POST['uname']
+        password=request.POST['psw']
+        user= auth.authenticate(username=username,password=password)
+        if user:
+            auth.login(request,user)
+
+            return render(request,"home.html")
+        elif not User.objects.filter(username=username).exists():
+            messages.error(request,"Username does not exist")
+            return redirect("/")
+        else:
+            messages.error(request,"Password is incorrect")
+            return redirect("/")
+    except:
+        d={}
+        L=['Sports','Business','Health','Entertainment','Science','Technology','Nation']
+        for i in L:
+            try:
+                request.POST[i]
+                d[i]=True
+            except:
+                d[i]=False
+        genres=""
+        for i in d:
+            if d[i]:
+                genres+=i+" "
+        USER+=[genres]
+        k=userinfo(uname=USER[0],location=USER[1],genres=USER[2])  
+        k.save()  
         return render(request,"home.html")
-    elif not User.objects.filter(username=username).exists():
-        messages.error(request,"Username does not exist")
-        return redirect("/")
-    else:
-        messages.error(request,"Password is incorrect")
-        return redirect("/")
 
 def sign_up(request):
     return render(request,'sign_up.html')
@@ -61,31 +81,12 @@ def genres(request):
             user=User.objects.create_user(username=username,password=password,email=email)
             USER=[username,loc]
             user.save()
-        
+    
     except:
         pass
     return render(request,'genres.html')
-def home(request):
-    global USER
-    d={}
-    L=['Sports','Business','Health','Entertainment','Science','Technology','Nation']
-    for i in L:
-        try:
-            request.POST[i]
-            d[i]=True
-        except:
-            d[i]=False
-    
-    
-   
-    genres=""
-    for i in d:
-        if d[i]:
-            genres+=i+" "
-        
-    
-    
-    
-    return render(request,'home.html')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
 
 # Create your views here.

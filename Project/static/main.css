@@ -43,7 +43,7 @@ hr {
 
 .top-head {
   display: flex;
-  justify-content: space-evenly;
+
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
@@ -60,14 +60,9 @@ hr {
 
 /******* js related styling *****/
 
-.times-btn {
-  display: none;
-}
-
 .nav-bar {
   background: #333;
-  height: 0;
-  overflow: visible;
+  height: max-content;
 }
 
 .show-nav {
@@ -78,17 +73,14 @@ hr {
 .nav-bar ul {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 .nav-bar ul li {
   text-align: center;
   display: block;
-  padding: 15px 0;
+  padding: 15px 20px;
   transition: all 1s ease-in-out;
-}
-
-.nav-bar ul li:hover {
-  background: #0e0e0e;
 }
 
 .nav-bar ul li a {
@@ -98,10 +90,28 @@ hr {
 
 .nav-bar ul li a:hover {
   text-decoration: underline;
+  background-color: #000;
 }
 .nav-bar ul li button {
   border: none;
   cursor: pointer;
+  text-transform: uppercase;
+}
+.nav-bar ul li button:hover {
+  background-color: #000;
+}
+.search button {
+  background-color: #333;
+  border: none;
+  color: aliceblue;
+  cursor: pointer;
+}
+.search button:hover {
+  background-color: black;
+}
+.search input {
+  font-size: large;
+  border-radius: 5px;
 }
 
 /* social -icons */
@@ -114,10 +124,23 @@ hr {
   width: fit-content;
   position: relative;
 }
+.options {
+  height: auto;
+  width: fit-content;
+  position: relative;
+}
+
 .drp {
   background-color: #333;
   color: mintcream;
 
+  font-size: large;
+  border: none;
+  cursor: pointer;
+}
+.drpbtn {
+  background-color: #333;
+  color: mintcream;
   font-size: large;
   border: none;
   cursor: pointer;
@@ -132,10 +155,27 @@ hr {
   color: coral;
   transition: 0.3s;
 }
-.drp:hover {
-  background-color: blue;
+.drpbtn .links {
+  padding: 10px;
+  border: none;
+  outline: none;
+  width: fit-content;
+  height: fit-content;
+  color: coral;
+  transition: 0.3s;
 }
+
 .cont {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: 0.256s;
+  width: fit-content;
+  position: absolute;
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.content {
   transform: scaleY(0);
   transform-origin: top;
   transition: 0.256s;
@@ -148,7 +188,14 @@ hr {
 .newlist1 {
   transform: scaleY(1);
 }
+.newlist {
+  transform: scaleY(1);
+}
 .link:hover {
+  background-color: yellow;
+  transform: scale(1.1);
+}
+.links:hover {
   background-color: yellow;
   transform: scale(1.1);
 }
@@ -160,10 +207,33 @@ hr {
   text-align: left;
   position: relative;
 }
+.content a {
+  float: none;
+  color: #000;
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+  position: relative;
+}
 .link {
-  background-color: lemonchiffon;
+  background-color: blue;
+  color: #7ac64d;
 }
 
+.links {
+  background-color: blue;
+  color: #7ac64d;
+}
+
+.logout {
+  font-size: large;
+  border-radius: 5px;
+  color: white;
+  background-color: #333;
+
+  border: none;
+  outline: none;
+}
 /* banner */
 
 .banner {
