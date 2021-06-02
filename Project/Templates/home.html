@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="no-js">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,14 +10,40 @@
     <link rel="stylesheet" href="{% static 'main.css' %}" />
     <!-- google fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;700;900&display=swap"
       rel="stylesheet"
-    />
-    <!-- fontawesome -->
-    <script
-      src="https://kit.fontawesome.com/dbed6b6114.js"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
+      integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni"
       crossorigin="anonymous"
-    ></script>
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% if messages %} {% for msg in messages %}
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      style="color: green"
+    >
+      {{msg.message}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-hidden="true"
+        style="color: green"
+      >
+        &times;
+      </button>
+    </div>
+    {% endfor %} {% endif %}
   </head>
   <body>
     {% csrf_token %}
@@ -71,7 +97,7 @@
                   <button class="drpbtn">Options</button>
                   <div class="content">
                     <a href="/genres" class="links">Change genres</a>
-                    <a href="#" class="links">Change password</a>
+                    <a href="/changepass" class="links">Change password</a>
                   </div>
                 </div>
               </li>
@@ -105,6 +131,5 @@
         list1.classList.toggle("newlist1");
       });
     </script>
-    <script src="script.js" async defer></script>
   </body>
 </html>

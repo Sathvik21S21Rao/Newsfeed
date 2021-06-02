@@ -1,0 +1,147 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
+      integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% if messages %}
+    {% for msg in messages %}
+    <div class="alert alert-danger alert-dismissible fade show"  style="color: red;"> 
+      
+        {{msg.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: red;">&times;</button>
+      </div>
+    
+    
+    {% endfor %}
+  {% endif %}
+ 
+ 
+  </head>
+  <style>
+    body {
+      background-image: url("{% static 'background.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: max-content;
+      margin: 0px;
+      padding: 0px;
+      
+    }
+    .header {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: grey;
+      color: white;
+      width: fit-content;
+      height: fit-content;
+      padding: 10px;
+    }
+    .root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .signupform {
+      font-size: large;
+      color: white;
+      width: fit-content;
+      padding: 20px;
+    }
+    .text {
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid #4caf50;
+    }
+    .text input {
+      border: none;
+      outline: none;
+      background: none;
+      color: white;
+    }
+    .dropdown {
+      background-color: gray;
+      border-radius: 20px;
+      font-size: medium;
+      color: white;
+    }
+    .button {
+      background-color: gray;
+      font-size: medium;
+      color: white;
+    }
+  </style>
+  <body>
+    
+
+    <div class="root">
+      <div class="signupform">
+        
+        <form action="changepass" method="post">
+          {% csrf_token %}
+
+          <p>Change Password</p>
+          <label><b>Current Password</b></label>
+          <div class="text">
+            
+            <input
+              type="password"
+              placeholder="Current password"
+              size="30"
+              name="cpass"
+              required
+            />
+          </div>
+          <br />
+          
+          <label><b>New Password</b></label>
+          <div class="text">
+            
+            <input
+              type="password"
+              placeholder="Enter password"
+              size="30"
+              name="newpass"
+              required
+            />
+          </div>
+
+          <br />
+          
+          <label><b>Confirm New Password</b></label>
+          <div class="text">
+            <i class="fa fa-key"></i>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              size="30"
+              name="confnewpass"
+              required
+            />
+          </div>
+          <br />
+          <button class="button" type="submit">Submit</button>
+        </form>  
+    </div>
+  </body>
+</html>
