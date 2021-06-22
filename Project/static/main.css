@@ -22,9 +22,6 @@ body {
 
 /* global styling */
 
-img {
-  width: 100%;
-}
 ul {
   list-style: none;
 }
@@ -116,9 +113,6 @@ hr {
 
 /* social -icons */
 
-.social-icons {
-  display: none;
-}
 .opt {
   height: auto;
   width: fit-content;
@@ -234,6 +228,23 @@ hr {
   border: none;
   outline: none;
 }
+
+/* article */
+#news {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.arts {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  flex-wrap: wrap;
+  border: thick solid black;
+  font-size: larger;
+}
+
 /* banner */
 
 .banner {

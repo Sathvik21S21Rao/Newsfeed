@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript">
       function chk(j) {
+        document.form1.submit1.disabled = false;
         var total = 0;
         var a = [
           document.form1.Sports,
@@ -12,9 +13,8 @@
           document.form1.Entertainment,
           document.form1.Science,
           document.form1.Technology,
-          document.form1.Nation,
         ];
-        for (i = 0; i < 7; i++) {
+        for (i = 0; i < 6; i++) {
           if (a[i].checked) {
             total += 1;
           }
@@ -22,6 +22,10 @@
         if (total > 4) {
           alert("Maximum number of choices is 4");
           a[j].checked = false;
+        }
+        if ((total == 0) & (j == -1)) {
+          alert("Choose atleast one");
+          document.form1.submit1.disabled = true;
         }
         return false;
       }
@@ -44,6 +48,7 @@
       color: white;
       font-size: xx-large;
       font-style: italic;
+      padding: 0 20px;
     }
 
     .Select {
@@ -53,49 +58,61 @@
       color: white;
       font-size: x-large;
       font-style: normal;
+      padding: 10px 50px;
     }
   </style>
   <body>
     <div class="main">
       <p>Select your favourite genres</p>
-      <form action="home" name="form1" method="post">
-        {% csrf_token %}
-
+      <form action="home" name="form1">
         <div class="Select">
           <input type="checkbox" name="Sports" onclick="chk(0)" />Sports
-          <hr />
+          <br />
+          <br />
           <input type="checkbox" name="Business" onclick="chk(1)" />Business
-          <hr />
+          <br />
+          <br />
           <input
             value="2"
             type="checkbox"
             name="Health"
             onclick="chk(2)"
           />Health
-          <hr />
+          <br />
+          <br />
           <input
             type="checkbox"
             name="Entertainment"
             onclick="chk(3)"
           />Entertainment
-          <hr />
+          <br />
+          <br />
           <input type="checkbox" name="Science" onclick="chk(4)" />Science
-          <hr />
+          <br />
+          <br />
           <input
             type="checkbox"
             value="chk(5)"
             name="Technology"
             onclick="chk(5)"
           />Technology
-          <hr />
-          <input type="checkbox" name="Nation" onclick="chk(6)" />Nation
-          <hr />
+          <br />
+          <br />
 
           <br />
-          <button class="button" type="submit">Next</button>
+          <button class="button" type="submit" name="submit1" onclick="chk(-1)">
+            Next
+          </button>
           <br />
         </div>
       </form>
     </div>
   </body>
+  <footer>
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+  </footer>
 </html>

@@ -1,0 +1,133 @@
+{% load static %}
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript">
+      function chk(j) {
+        var total = 0;
+        var a = [
+          document.form1.Australia,
+          document.form1.Brazil,
+          document.form1.China,
+          document.form1.France,
+          document.form1.Germany,
+          document.form1.India,
+          document.form1.Italy,
+          document.form1.Japan,
+          document.form1.Russia,
+          document.form1.Saudi_Arabia,
+          document.form1.Singapore,
+          document.form1.South_Africa,
+          document.form1.United_Kingdom,
+          document.form1.United_States,
+        ];
+        for (i = 0; i < 14; i++) {
+          if (a[i].checked) {
+            total += 1;
+          }
+        }
+        if (total > 1) {
+          alert("Only one location can be selected");
+          a[j].checked = false;
+        }
+        return false;
+      }
+    </script>
+  </head>
+  <style>
+    body {
+      background-image: url("{% static 'background.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: max-content;
+      margin: 0px;
+      padding: 0px;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: xx-large;
+      font-style: italic;
+      padding: 0 20px;
+    }
+
+    .Select {
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+      color: white;
+      font-size: x-large;
+      font-style: normal;
+      padding: 10px 50px;
+    }
+  </style>
+  <body>
+    <div class="main">
+      <em>Select your location</em>
+      <div class="Select">
+        <form action="location" name="form1" method="post">
+          {% csrf_token %}
+          <input type="checkbox" name="Australia" onclick="chk(0)" />Australia
+          <br />
+
+          <input type="checkbox" name="Brazil" onclick="chk(1)" />Brazil
+          <br />
+
+          <input type="checkbox" name="China" onclick="chk(2)" />China
+          <br />
+
+          <input type="checkbox" name="France" onclick="chk(3)" />France
+          <br />
+
+          <input type="checkbox" name="Germany" onclick="chk(4)" />Germany
+          <br />
+
+          <input type="checkbox" name="India" onclick="chk(5)" />India
+          <br />
+
+          <input type="checkbox" name="Italy" onclick="chk(6)" />Italy
+          <br />
+
+          <input type="checkbox" name="Japan" onclick="chk(7)" />Japan
+          <br />
+
+          <input type="checkbox" name="Russia" onclick="chk(8)" />Russia
+          <br />
+
+          <input type="checkbox" name="Saudi_Arabia" onclick="chk(9)" />Saudi
+          Arabia
+          <br />
+
+          <input type="checkbox" name="Singapore" onclick="chk(10)" />Singapore
+          <br />
+
+          <input type="checkbox" name="South_Africa" onclick="chk(11)" />South
+          Africa
+          <br />
+
+          <input
+            type="checkbox"
+            name="United_Kingdom"
+            onclick="chk(12)"
+          />United Kingdom
+          <br />
+
+          <input type="checkbox" name="United_States" onclick="chk(13)" />United
+          States
+          <br />
+          <button class="button" type="submit">Next</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <script>
+        if (window.history.replaceState) {
+          window.history.replaceState(null, null, window.location.href);
+        }
+      </script>
+    </footer>
+  </body>
+</html>

@@ -1,13 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+  {% if user.is_authenticated %}
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <link rel="stylesheet" href="{% static 'main.css' %}" type="text/css" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'main.css' %}" />
+
     <!-- google fonts -->
     <link
       rel="stylesheet"
@@ -27,32 +28,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    {% if messages %} {% for msg in messages %}
-    <div
-      class="alert alert-success alert-dismissible fade show"
-      style="color: green"
-    >
-      {{msg.message}}
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-hidden="true"
-        style="color: green"
-      >
-        &times;
-      </button>
-    </div>
-    {% endfor %} {% endif %}
+    <script>
+      var a = JSON.parse("{{ Image | escapejs}}");
+      var b = JSON.parse("{{Title | escapejs}}");
+      function articles() {
+        var m = document.getElementById("news");
+        var h = "<div>";
+        for (i = 0; i < a.length; i++) {
+          if ((i % 4 == 0) & (i != 0)) {
+            h += "</div>";
+            m.insertAdjacentHTML("beforeend", h);
+            h = "<div>";
+          }
+          k = a[i];
+
+          d = "<img src=" + k + " width=200px>";
+          title = "<a>" + b[i].substring(0) + "</a> </div><br> ";
+          f = "<div class='arts'>" + d + " " + title;
+          h += f;
+        }
+      }
+    </script>
   </head>
+  <style>
+    .p {
+      font-size: x-large;
+      font-style: oblique;
+    }
+  </style>
   <body>
-    {% csrf_token %}
     <!-- header -->
     <header>
       <div class="navigation-container">
         <div class="top-head">
           <div class="web-name">
-            <h1>TECHNEWS</h1>
+            <h1>NEWS</h1>
           </div>
         </div>
 
@@ -63,6 +73,7 @@
             <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#">Trending</a></li>
+              <li><a href="#">Nation</a></li>
               <li>
                 <div class="search">
                   <button>
@@ -98,6 +109,7 @@
                   <div class="content">
                     <a href="/genres" class="links">Change genres</a>
                     <a href="/changepass" class="links">Change password</a>
+                    <a href="/location" class="links">Change location</a>
                   </div>
                 </div>
               </li>
@@ -117,6 +129,12 @@
         <!--social icons -->
       </div>
     </header>
+    <p align="center" class="p">WORLD NEWS</p>
+    <br />
+    <article id="news"></article>
+    <script>
+      articles();
+    </script>
 
     <script>
       let click = document.querySelector(".drpbtn");
@@ -132,4 +150,14 @@
       });
     </script>
   </body>
+  {% else %}
+  <p>Can access this page only if logged in</p>
+  {% endif %}
+  <footer>
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+  </footer>
 </html>

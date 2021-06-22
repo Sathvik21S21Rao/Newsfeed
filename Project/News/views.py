@@ -3,38 +3,60 @@ from django.contrib import messages
 import requests
 from django.contrib.auth.models import User,auth
 from .models import Userverification as userinfo
-
+import sys
+from difflib import SequenceMatcher
 import string
-USER=[]
-def password_check(passwd):
+import csv
+import json
+def image(x):
+    c = []
+    d = []
+    with open(x,'r',encoding='utf-8') as file:
+        csvr = csv.reader(file)
+        for i in (csvr):
+            if len(i) !=0:
+                for r in range(len(i)):
+                    if r%2 !=0:
+                        c += [i[r]]
+                    else:
+                        j = i[r].split("\n")
+                        v = j[0]
+                        d +=[v]
+    return c,d
+USER={"username":"","location":"","genres":""}
+b=False
+b1=False
+def password_check(passwd,us):
     SpecialSym =string.punctuation
-    val = True
-      
-    if len(passwd) < 6:
-        print('length should be at least 6')
-        val = False
-          
-    if len(passwd) > 20:
-        print('length should be not be greater than 8')
-        val = False
-          
-    if not any(char.isdigit() for char in passwd):
-        print('Password should have at least one numeral')
-        val = False
-          
-    if not any(char.isupper() for char in passwd):
-        print('Password should have at least one uppercase letter')
-        val = False
-          
-    if not any(char.islower() for char in passwd):
-        print('Password should have at least one lowercase letter')
-        val = False
-          
-    if not any(char in SpecialSym for char in passwd):
-        print('Password should have at least one of the symbols $@#')
-        val = False
     
-    return val
+      
+    if len(passwd) < 8:
+        print('length should be at least 8')
+        return False
+          
+    elif len(passwd) > 20:
+        print('length should be not be greater than 20')
+        return False
+          
+    elif not any(char.isdigit() for char in passwd):
+        print('Password should have at least one numeral')
+        return False
+          
+    elif not any(char.isupper() for char in passwd):
+        print('Password should have at least one uppercase letter')
+        return False
+          
+    elif not any(char.islower() for char in passwd):
+        print('Password should have at least one lowercase letter')
+        return False
+          
+    elif not any(char in SpecialSym for char in passwd):
+        print('Password should have at least one of the symbols $@#')
+        return False
+    elif SequenceMatcher(passwd.lower(),us.lower()).quick_ratio()>0.5:
+        return False
+    
+    return True
   
 
 def emailverifier(email):
@@ -47,10 +69,16 @@ def emailverifier(email):
         return True
     else:
         return False
+
 def response(request):
+    if request.user.is_authenticated:
+        auth.logout(request)
     return render(request,'login.html')
+
 def login(request):
-    global USER
+    global USER,b,b1
+
+
     try:
         username=request.POST['uname']
         password=request.POST['psw']
@@ -70,7 +98,7 @@ def login(request):
             L=['Sports','Business','Health','Entertainment','Science','Technology','Nation']
             for i in L:
                 try:
-                    request.POST[i]
+                    request.GET[i]
                     d[i]=True
                 except:
                     d[i]=False
@@ -78,28 +106,68 @@ def login(request):
             for i in d:
                 if d[i]:
                     genres+=i+" "
-            USER+=[genres]
-            k=userinfo(uname=USER[0],location=USER[1],genres=USER[2])  
-            k.save()  
+
+            
+            if USER["username"]!="":
+                USER['genres']=genres
+                k=userinfo(uname=USER["username"],location=USER["location"],genres=USER["genres"])
+                k.save()  
+            USER={"username":"","location":"","genres":""}
+            
+            
         except:
             pass
-        return render(request,"home.html")
+
+    if request.user.is_authenticated:
+        if b:
+            U=userinfo.objects.get(uname=request.user.username)
+            k=U.genres
+            d={}
+            L=['Sports','Business','Health','Entertainment','Science','Technology','Nation']
+            for i in L:
+                try:
+                    request.GET[i]
+                    d[i]=True
+                except:
+                    d[i]=False
+            genres=""
+            for i in d:
+                if d[i]:
+                    genres+=i+" " 
+            if k!="" and genres=="":
+                genres=k  
+            U.genres=genres
+            U.save()
+            b=False
+            return redirect("/home",permanent=True)
+ 
+
+    if request.user.is_authenticated:
+        
+        new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
+        c,d=image(new_path)
+        c=json.dumps(c)
+        d=json.dumps(d)
+        return render(request,"home.html",{"Title":d,"Image":c})
+    else:
+        return redirect("/",permanent=True)
+   
 
 def sign_up(request):
     return render(request,'sign_up.html')
+
 def genres(request):
-    global USER
+    global USER,b
     try:
+        
+
         username=request.POST['username']
         password=request.POST['psw']
-        confirm=request.POST['pswr']
         email=request.POST['email']
         loc=request.POST['location']
-       
-        if password!=confirm:
-            messages.error(request,'Password does not match confirm')
-            return redirect('/sign_up')
-        if not password_check(password):
+        
+        if not password_check(password,username):
+            
             messages.error(request,"Enter a stronger password")
             return redirect('/sign_up')
         elif emailverifier(email)==False:
@@ -111,42 +179,93 @@ def genres(request):
         elif User.objects.filter(email=email).exists():
             messages.error(request,"Email already taken")
             return redirect('/sign_up')
+ 
         
+        
+       
+        user=User.objects.create_user(username=username,password=password,email=email)
+        user.save()
+        USER["username"]=username
+        USER["location"]=loc
+            
+        u=auth.authenticate(username=username,password=password)
+        if u:
+            print("abc")
+            auth.login(request,u)
         else:
-            user=User.objects.create_user(username=username,password=password,email=email)
-            USER=[username,loc]
-            user.save()
+            print("def")
     
     except:
-        pass
-    return render(request,'genres.html')
+        print(sys.exc_info)
+        b=True
+    
+    
+    return render(request,"genres.html")
+
+
 def logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('/',permanent=True)
+
 def changepass(request):
-    if request.method=="POST":
+    if request.method=="POST" and request.user.is_authenticated:
         current=request.POST["cpass"]
         new=request.POST["newpass"]
-        confirm=request.POST["confnewpass"]
-        if new!=confirm:
-            messages.error(request,"Confirm and Password not matching")
-            return redirect("/changepass")
         user=User.objects.get(id=request.user.id)
         check=user.check_password(current)
         if check:
             if password_check(new):
                 user.set_password(new)
                 user.save()
-                messages.success(request,"Succesfully changed the password")
-                return redirect("/home")
+                messages.success(request,"Password successfully changes.")
+                return redirect("/home",permanent=True)
+                
             else:
                 messages.error(request,"Password conditions not met")
                 return redirect("/changepass")
         else:
             messages.error(request,"Wrong password")
             return redirect("/changepass")
+        
+    if request.user.is_authenticated:
+        return render(request,"changepass.html")
+    else:
+        return redirect("/",permanent=True)
+def location(request):
 
+    
+    if request.user.is_authenticated and request.method=="POST":
+    
+                   
+        
+        U=userinfo.objects.get(uname=request.user.username)
+        k=U.location
+        print(k)
+        locations=['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi_Arabia','Singapore','South_Africa','United_Kingdom','United_States']
+        locs=""
+        for i in locations:
+    
+            if (request.POST.get(i)):
+    
+                locs=i
+                break
+            
+        print(locs)
+        if k!="" and locs=="":
+            locs=k
+        if "_" in locs:
+            locs=locs.replace("_"," ")
+        U.location=locs
+            
+        U.save()       
 
-    return render(request,"changepass.html")
+        return redirect("/home",permanent=True)
+    if request.user.is_authenticated:
+        
+        return render(request,"location.html")
+    else:
+        return redirect("/",permanent=True)
+        
+            
 
 # Create your views here.

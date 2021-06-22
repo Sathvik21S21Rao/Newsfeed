@@ -9,6 +9,7 @@
       integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni"
       crossorigin="anonymous"
     />
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
@@ -21,7 +22,6 @@
     {% if messages %}
     {% for msg in messages %}
     <div class="alert alert-danger alert-dismissible fade show"  style="color: red;"> 
-      
         {{msg.message}}
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: red;">&times;</button>
       </div>
@@ -34,7 +34,6 @@
       background-image: url("{% static 'background.jpg' %}");
       background-size: cover;
       background-repeat: no-repeat;
-
       height: max-content;
       margin: 0px;
       padding: 0px;
@@ -79,12 +78,10 @@
   </style>
   <body>
     <div class="header">
-      <h1>WELCOME!!!</h1>
+      <h1>NEWS</h1>
     </div>
     <br />
     <br />
-    
-
     <div class="pageRoot">
       <div class="loginForm">
         <form action="home" method="post">
@@ -98,7 +95,7 @@
               <input
                 type="text"
                 placeholder="Enter Username"
-                size="30"
+                
                 name="uname"
                 required
               />
@@ -111,7 +108,7 @@
               <input
                 type="password"
                 placeholder="Enter Password"
-                size="30"
+               
                 name="psw"
                 required
               />

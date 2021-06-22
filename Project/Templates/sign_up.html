@@ -27,7 +27,17 @@
       </div>
     {% endfor %}
   {% endif %}
- 
+  <script>
+    function check() {
+      const password = document.querySelector('input[name=psw]');
+      const confirm = document.querySelector('input[name=pswr]');
+      if (confirm.value === password.value) {
+        confirm.setCustomValidity('');
+      } else {
+        confirm.setCustomValidity('Passwords do not match');
+      }
+    }
+ </script>
  
   </head>
   <style>
@@ -134,6 +144,7 @@
               placeholder="Enter password"
               size="30"
               name="psw"
+              onchange="check()"
               required
             />
           </div>
@@ -147,8 +158,10 @@
               placeholder="Confirm password"
               size="30"
               name="pswr"
+              onkeyup="check()"
               required
             />
+            <span id="message"></span>
           </div>
           <br />
           <i class="fa fa-globe"></i>
@@ -157,20 +170,20 @@
             <option value="" selected disabled hidden>Select Location</option>
             <option value="Australia">Australia</option>
             <option value="Brazil">Brazil</option>
-            <option value="Canada">Canada</option>
+            
             <option value="China">China</option>
             <option value="France">France</option>
             <option value="Germany">Germany</option>
-            <option value="Greece">Greece</option>
+            
             <option value="India">India</option>
             <option value="Italy">Italy</option>
             <option value="Japan">Japan</option>
-            <option value="New Zealand">New Zealand</option>
+            
             <option value="Russia">Russia</option>
             <option value="Saudi Arabia">Saudi Arabia</option>
             <option value="Singapore">Singapore</option>
             <option value="South Africa">South Africa</option>
-            <option value="Switzerland">Switzerland</option>
+
             <option value="United Kingdom">United Kingdom</option>
             <option value="United States">United States</option>
           </select>
@@ -180,6 +193,7 @@
         </form>
       </div>
     </div>
+    
 
     </div>
   </body>
