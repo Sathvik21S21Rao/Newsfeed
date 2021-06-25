@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  {% if user.is_authenticated %}
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,23 +26,52 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script>
+      window.onload = function () {
+        //considering there aren't any hashes in the urls already
+        if (!window.location.hash) {
+          //setting window location
+          window.location = window.location + "#loaded";
+          //using reload() method to reload web page
+          window.location.reload();
+        }
+      };
+    </script>
     <script>
       var a = JSON.parse("{{ Image | escapejs}}");
       var b = JSON.parse("{{Title | escapejs}}");
+      var c = 20;
+      if (a.length < 16) {
+        c = a.length;
+      }
       function articles() {
         var m = document.getElementById("news");
         var h = "<div>";
-        for (i = 0; i < a.length; i++) {
+        for (i = 0; i < c; i++) {
           if ((i % 4 == 0) & (i != 0)) {
             h += "</div>";
             m.insertAdjacentHTML("beforeend", h);
             h = "<div>";
           }
           k = a[i];
+          O = "";
+          q = "";
+          if (b[i].length <= 54) {
+            O = "<br>";
+          }
+          if (b[i].length >= 65) {
+            q = "...";
+          }
+          d = "<img src=" + k + " width=200px height=150px>";
 
-          d = "<img src=" + k + " width=200px>";
-          title = "<a>" + b[i].substring(0) + "</a> </div><br> ";
+          title =
+            "<a href='/article?Noice=" +
+            i +
+            "' /a>" +
+            b[i].substring(0, 65) +
+            q +
+            +O +
+            " </div><br> ";
           f = "<div class='arts'>" + d + " " + title;
           h += f;
         }
@@ -150,9 +178,7 @@
       });
     </script>
   </body>
-  {% else %}
-  <p>Can access this page only if logged in</p>
-  {% endif %}
+
   <footer>
     <script>
       if (window.history.replaceState) {

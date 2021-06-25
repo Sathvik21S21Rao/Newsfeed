@@ -63,12 +63,10 @@ class newsfeed:
 			for j in soup2('p'):
 				if 'sign up' in (j.text).lower() or 'subscribe' in (j.text).lower() or 'join' in (j.text).lower():
 					j.decompose()
-
-			k=soup2.body.find_all('img')
 			
-			for i in k:
-				
-				image.append(i.get('src'))
+
+			
+			
 			if soup2.body!=None:
 				html = soup2.body.find_all('p',class_="")
 			else:
@@ -89,22 +87,43 @@ class newsfeed:
 			if len(r)<100 or Title[y][Title[y].rfind('-'):] == " CNBCTV18":
 				Title.pop(y)
 				continue
+			
+				
 			r=Title[y]+'\n'+r
-			y+=1
-			print(image)
+			w=soup2.figure
+			m=None
+			if w!=None:
+				m=w.find("img")
+			P=""
+			if m!=None:
+				P=m.get("src")
+			if P==None:
+				P=""
+			k=soup2.body.find_all('img')
+			for i in k:
+				
+				image.append(i.get('src'))
 			for i in image:
 				try:
 					if ('.jpg' in i.lower() or '.jpeg' in i.lower()) and i.startswith('http')  :
 						s+=[i]
 				except:
 					pass
-			img=""
-			print(s)
-			if s!=[]:
+			img=r"https://cdn.pixabay.com/photo/2015/02/15/09/33/news-636978_960_720.jpg"
+			if not P.startswith("http"):
+				P=""
+			if P!="":
+				img=P
+			elif s!=[]:
 				for i in s:
 					if i!="":
 						img=i
-			self.Body+=[r,img]
+						break
+			
+			if r not in self.Body:
+				self.Body+=[r,img]
+			img=""
+			y+=1
 		return self.Body
 			
 			

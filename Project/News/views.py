@@ -23,6 +23,22 @@ def image(x):
                         v = j[0]
                         d +=[v]
     return c,d
+def art(x):
+    c = []
+    d = []
+    with open(x,'r',encoding='utf-8') as file:
+        csvr = csv.reader(file)
+        for i in (csvr):
+            if len(i) !=0:
+                for r in range(len(i)):
+                    if r%2 !=0:
+                        c += [i[r]]
+                    else:
+                        j = i[r]
+                        v = j
+                        d +=[v]
+    return c,d
+    
 USER={"username":"","location":"","genres":""}
 b=False
 b1=False
@@ -265,7 +281,20 @@ def location(request):
         return render(request,"location.html")
     else:
         return redirect("/",permanent=True)
-        
+def articles(request):
+    if request.user.is_authenticated:
+        k=(request.GET["Noice"])
+        new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
+        c,d=art(new_path)
+        c=json.dumps(c)
+        r=d[int(k)]
+        print(r)
+        r=json.dumps(r)
+        return render(request,"article.html",{"Art":r,"Image":c})
+    
+    else:
+        return redirect("/",permanent=True)
+            
             
 
 # Create your views here.

@@ -1,0 +1,120 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" href="{% static 'main.css' %}" type="text/css" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+        <!-- google fonts -->
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
+          integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni"
+          crossorigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    </head>
+    <body>
+        <style>
+            .p {
+              font-size: x-large;
+              font-style: oblique;
+            }
+          </style>
+          <body>
+            <!-- header -->
+            <header>
+              <div class="navigation-container">
+                <div class="top-head">
+                  <div class="web-name">
+                    <h1>NEWS</h1>
+                  </div>
+                </div>
+        
+                <!-- nav bar -->
+        
+                <div class="nav-bar" id="nav-bar">
+                  <nav>
+                    <ul>
+                      <li><a href="/home">Home</a></li>
+                      <li><a href="#">Trending</a></li>
+                      <li><a href="#">Nation</a></li>
+                      <li>
+                        <div class="search">
+                          <button>
+                            <i class="fa fa-search"></i>
+                          </button>
+                          <input type="search" placeholder="Enter keyword" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="opt">
+                          <button class="drp">Location</button>
+                          <div class="cont">
+                            <a href="#" class="link"> Australia </a>
+                            <a href="#" class="link"> Brazil </a>
+                            <a href="#" class="link"> China </a>
+                            <a href="#" class="link"> France </a>
+                            <a href="#" class="link"> Germany </a>
+                            <a href="#" class="link"> India </a>
+                            <a href="#" class="link"> Italy </a>
+                            <a href="#" class="link"> Japan </a>
+                            <a href="#" class="link"> Russia </a>
+                            <a href="#" class="link"> Saudi Arabia </a>
+                            <a href="#" class="link"> Singapore </a>
+                            <a href="#" class="link"> South Africa </a>
+                            <a href="#" class="link"> United Kingdom </a>
+                            <a href="#" class="link"> United States </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="options">
+                          <button class="drpbtn">Options</button>
+                          <div class="content">
+                            <a href="/genres" class="links">Change genres</a>
+                            <a href="/changepass" class="links">Change password</a>
+                            <a href="/location" class="links">Change location</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <form action="logout">
+                          <div class="log">
+                            <button class="logout">
+                              <i class="fa fa-user"></i> Logout
+                            </button>
+                          </div>
+                        </form>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+        
+                <!--social icons -->
+              </div>
+            </header>
+            <br />
+    
+        <script>
+            var a = JSON.parse("{{ Image | escapejs}}");
+            var b = JSON.parse("{{ Art | escapejs}}");
+    
+            document.body.append(b)
+        </script>
+    
+    </body>
+</html>
