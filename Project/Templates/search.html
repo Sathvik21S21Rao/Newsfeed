@@ -38,42 +38,38 @@
       };
     </script>
     <script>
-      var a = JSON.parse("{{ Image | escapejs}}");
-      var b = JSON.parse("{{Title | escapejs}}");
-      var c = 20;
-      if (a.length < 16) {
-        c = a.length;
-      }
+      var b = JSON.parse("{{title | escapejs}}");
+      var u = JSON.parse("{{image | escapejs}}");
+      var d = "{{ Key }}";
+
       function articles() {
-        var m = document.getElementById("news");
+        var m = document.getElementById("new");
         var h = "<div>";
-        for (i = 0; i < c; i++) {
-          if ((i % 4 == 0) & (i != 0)) {
-            h += "</div>";
-            m.insertAdjacentHTML("beforeend", h);
-            h = "<div>";
-          }
-          k = a[i];
+        for (i = 0; i < b.length; i++) {
           s = "";
           q = "";
-          if (b[i].length <= 54) {
-            s = "<br>";
-          }
-          if (b[i].length >= 65) {
-            q = "...";
-          }
-          d = "<img src=" + k + " width=200px height=150px>";
 
           title =
             "<a href='/article?Noice=" +
             i +
-            "&world=True' /a>" +
-            b[i].substring(0, 65) +
+            "&keyword=" +
+            d +
+            "'/a>" +
+            b[i] +
             q +
             s +
             " </div><br> ";
-          f = "<div class='arts'>" + d + " " + title;
+          f =
+            "<img src='" +
+            u[i] +
+            "' width=100px height=100px> " +
+            "<div class='separator'> " +
+            " " +
+            title;
           h += f;
+          h += "</div>" + "  <div class='thupid'> </div> ";
+          m.insertAdjacentHTML("beforeend", h);
+          h = "<div>";
         }
       }
     </script>
@@ -99,24 +95,22 @@
         <div class="nav-bar" id="nav-bar">
           <nav>
             <ul>
-              <li><a href="#">Home</a></li>
+              <li><a href="/home">Home</a></li>
               <li><a href="#">Trending</a></li>
               <li><a href="#">Nation</a></li>
               <li>
-                <div class="search">
-                  <form action="search">
+                <form action="search">
+                  <div class="search">
                     <button>
                       <i class="fa fa-search"></i>
                     </button>
-
                     <input
                       type="search"
                       placeholder="Enter keyword"
                       name="keyword"
-                      autocomplete="off"
                     />
-                  </form>
-                </div>
+                  </div>
+                </form>
               </li>
               <li>
                 <div class="opt">
@@ -165,9 +159,8 @@
         <!--social icons -->
       </div>
     </header>
-    <p align="center" class="p">WORLD NEWS</p>
-    <br />
-    <article id="news"></article>
+
+    <article id="new"></article>
     <script>
       articles();
     </script>
@@ -185,12 +178,4 @@
       });
     </script>
   </body>
-
-  <footer>
-    <script>
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-      }
-    </script>
-  </footer>
 </html>

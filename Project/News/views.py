@@ -8,6 +8,50 @@ from difflib import SequenceMatcher
 import string
 import csv
 import json
+csv.field_size_limit(100000000)
+searches=False
+def bubbleSort(arr,arr1):
+	n = len(arr)
+	for i in range(n-1):
+   
+		for j in range(0, n-i-1):
+			if int(arr[j]) < arr[j+1] :
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+				arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
+	return arr1
+def descending(keyword):
+    k=[]
+    c=[]
+    title=[]
+    keyword=keyword.lower()
+    for i in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
+        with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+i+'.csv','r',encoding="utf-8",errors="ignore") as file:
+            file_reader=csv.reader(file)
+         
+            
+            for line in file_reader:
+                if line!=[]:
+                    for j in range(len(line)):
+                        if j%2==0:
+                            if (line[j]).split("\n")[0] not in title:
+                                title+=[(line[j]).split("\n")[0]]
+                                k+=[line[j]]
+                                if j+1!=len(line):
+                                    c+=[line[j+1]]
+                        
+    COUNT=[]
+    news1=[]
+    h=[]
+    print(len(c),len(k))
+    for i in range(len(k)):
+        if keyword in k[i].lower():
+            count=(k[i].lower()).count(keyword)
+        
+            COUNT.append(count)
+            news1.append(k[i])
+            h.append(c[i])
+    
+    return bubbleSort(COUNT,news1),h
 def image(x):
     c = []
     d = []
@@ -16,28 +60,34 @@ def image(x):
         for i in (csvr):
             if len(i) !=0:
                 for r in range(len(i)):
-                    if r%2 !=0:
-                        c += [i[r]]
-                    else:
-                        j = i[r].split("\n")
-                        v = j[0]
-                        d +=[v]
+                    if r%2==0:
+                        if i[r].split("\n")[0]  not in d:
+                        
+                            j = i[r].split("\n")
+                            v = j[0]
+                            d +=[v]
+                            if r+1!=len(i):
+                                c+=[i[r+1]]
     return c,d
 def art(x):
     c = []
     d = []
+    e=[]
+    
     with open(x,'r',encoding='utf-8') as file:
         csvr = csv.reader(file)
         for i in (csvr):
             if len(i) !=0:
                 for r in range(len(i)):
-                    if r%2 !=0:
-                        c += [i[r]]
-                    else:
-                        j = i[r]
-                        v = j
-                        d +=[v]
-    return c,d
+                    if r%2==0:
+                        if i[r].split("\n")[0] not in d:
+                            j = i[r].split("\n")
+                            v = j[0]
+                            e+=["\n".join(j[1:])]
+                            d +=[v]
+                            if r+1!=len(i):
+                                c+=[i[r+1]]
+    return c,d,e
     
 USER={"username":"","location":"","genres":""}
 b=False
@@ -250,10 +300,7 @@ def changepass(request):
 def location(request):
 
     
-    if request.user.is_authenticated and request.method=="POST":
-    
-                   
-        
+    if request.user.is_authenticated and request.method=="POST":    
         U=userinfo.objects.get(uname=request.user.username)
         k=U.location
         print(k)
@@ -282,18 +329,57 @@ def location(request):
     else:
         return redirect("/",permanent=True)
 def articles(request):
+    global searches
+
     if request.user.is_authenticated:
-        k=(request.GET["Noice"])
-        new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
-        c,d=art(new_path)
-        c=json.dumps(c)
-        r=d[int(k)]
-        print(r)
-        r=json.dumps(r)
-        return render(request,"article.html",{"Art":r,"Image":c})
+        try:
+            k=(request.GET["Noice"]) 
+            confirmation=request.GET["world"]
+            
+            new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
+            c,d,e=art(new_path)
+            r=d[int(k)]
+            c=c[int(k)]
+            e=e[int(k)]
+            e=e.replace("\n","<br>")
+            r=json.dumps(r)
+            c=json.dumps(c)
+            e=json.dumps(e)
+            return render(request,"article.html",{"Title":r,"Image":c,"Art":e})
+        except:
+            k=int(request.GET["Noice"])
+            d=request.GET["keyword"]
+            m,s=descending(d)
+            s=s[k]
+            content=m[k].split("\n")
+            title=content[0]
+            arti="\n".join(content[1:])
+            
+            
+            searches=False
+            arti=arti.replace("\n","<br>")
+            return render(request,"article.html",{"Title":json.dumps(title),"Image":json.dumps(s),"Art":json.dumps(arti)})
+            
     
     else:
         return redirect("/",permanent=True)
+def search(request):
+    global searches
+    if request.user.is_authenticated:
+        k=request.GET["keyword"]
+        r,s=descending(k)
+        j=[]
+        
+        
+        for i in r:
+            m=i.split("\n")
+            
+            j+=[m[0]]
+            searches=True
+        j=json.dumps(j)
+        s=json.dumps(s)
+        
+        return render(request,"search.html",{"title":j,"image":s,"Key":k})
             
             
 

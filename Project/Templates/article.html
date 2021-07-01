@@ -31,8 +31,32 @@
         <style>
             .p {
               font-size: x-large;
-              font-style: oblique;
+              font-style: oblique;}
+            .abc{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: space-evenly;
+              font-size:larger;
+              margin:10px;
+              padding:0 5px;
             }
+            .def{
+              display: flex;
+              flex-direction: column;
+              align-items:center;
+              align-self: center;
+              justify-content: space-evenly;
+              margin:10px;
+              padding:0 10px;
+            
+            }
+            .def p{
+              font-size:xx-large;
+              font-weight: bolder;
+              font-style: italic;
+            }
+            
           </style>
           <body>
             <!-- header -->
@@ -43,7 +67,7 @@
                     <h1>NEWS</h1>
                   </div>
                 </div>
-        
+                <br>
                 <!-- nav bar -->
         
                 <div class="nav-bar" id="nav-bar">
@@ -53,12 +77,14 @@
                       <li><a href="#">Trending</a></li>
                       <li><a href="#">Nation</a></li>
                       <li>
+                        <form action="search">
                         <div class="search">
                           <button>
                             <i class="fa fa-search"></i>
                           </button>
-                          <input type="search" placeholder="Enter keyword" />
+                          <input type="search" placeholder="Enter keyword" name="keyword" />
                         </div>
+                        </form>
                       </li>
                       <li>
                         <div class="opt">
@@ -112,8 +138,22 @@
         <script>
             var a = JSON.parse("{{ Image | escapejs}}");
             var b = JSON.parse("{{ Art | escapejs}}");
+            var c=JSON.parse("{{ Title | escapejs}}");
+
+            document.body.innerHTML+="<div class='def'> <p>"+c+"</p></div> "+"<div class='abc'><img align='center' src="+a+" width=500px  ><br>"+b+"<\div>"
+        </script>
+        <script>
+          let click = document.querySelector(".drpbtn");
+          let list = document.querySelector(".content");
+          click.addEventListener("click", () => {
+            list.classList.toggle("newlist");
+          });
     
-            document.body.append(b)
+          let click1 = document.querySelector(".drp");
+          let list1 = document.querySelector(".cont");
+          click1.addEventListener("click", () => {
+            list1.classList.toggle("newlist1");
+          });
         </script>
     
     </body>

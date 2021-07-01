@@ -36,6 +36,7 @@ class newsfeed:
 		news=d.NewsClient(language='english',topic=self.topic,location=self.location,max_results=10)
 		List,Title=allow(news)
 		y=0
+		genres={"Sports":r'https://annaadarsh.edu.in/wp-content/uploads/2021/04/sport.png',"Business":r'https://www.incimages.com/uploaded_files/image/1920x1080/shutterstock_1145284904_372957.jpg',"Health":r'https://images.everydayhealth.com/homepage/health-topics-2.jpg?sfvrsn=757370ae_2',"Entertainment":r'https://etimg.etb2bimg.com/photo/81478822.cms',"Science":r'https://shouts.site/wp-content/uploads/2020/07/science-stem-feature.png',"Technology":r' https://www.verdict.co.uk/wp-content/uploads/2021/04/shutterstock_1583248045.jpg'}
 		for url in List:
 			image=[]
 			r=''
@@ -81,10 +82,8 @@ class newsfeed:
 			for j in start:
 				if j in r.lower():
 					r=r.replace(j,'')
-			for j in end:
-				if r.find(j)!=-1:
-					r=r.replace(r[r.find(j):],'')
-			if len(r)<100 or Title[y][Title[y].rfind('-'):] == " CNBCTV18":
+
+			if len(r)<200 or Title[y][Title[y].rfind('-'):] == " CNBCTV18" or Title[y][Title[y].rfind('-'):].lower() == " abc news" or Title[y][Title[y].rfind('-'):]=="  Los Angeles County":
 				Title.pop(y)
 				continue
 			
@@ -109,7 +108,10 @@ class newsfeed:
 						s+=[i]
 				except:
 					pass
-			img=r"https://cdn.pixabay.com/photo/2015/02/15/09/33/news-636978_960_720.jpg"
+			if genres.get(self.topic):
+				img=genres.get(self.topic)
+			else:
+				img=r"https://cdn.pixabay.com/photo/2015/02/15/09/33/news-636978_960_720.jpg"
 			if not P.startswith("http"):
 				P=""
 			if P!="":

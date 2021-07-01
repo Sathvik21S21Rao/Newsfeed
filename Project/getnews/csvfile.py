@@ -12,7 +12,7 @@ def bubbleSort(arr,arr1):
 				arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
 	return arr1
 def descending():
-	for i in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa','United Kingdom','United States']:
+	for i in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
 		with open(i+'.csv','r',encoding="utf-8",errors="ignore") as file:
 			file_reader=csv.reader(file)
 			k=[]

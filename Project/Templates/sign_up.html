@@ -45,7 +45,7 @@
       background-image: url("{% static 'background.jpg' %}");
       background-size: cover;
       background-repeat: no-repeat;
-      height: max-content;
+      height: auto;
       margin: 0px;
       padding: 0px;
       
@@ -116,6 +116,7 @@
               type="text"
               placeholder="Enter username"
               size="30"
+              autocomplete="off"
               name="username"
               required
             />
@@ -130,6 +131,7 @@
               placeholder="Enter email"
               size="30"
               name="email"
+              autocomplete="off"
               required
             />
           </div>
