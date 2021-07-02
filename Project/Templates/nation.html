@@ -38,38 +38,42 @@
       };
     </script>
     <script>
-      var b = JSON.parse("{{title | escapejs}}");
-      var u = JSON.parse("{{image | escapejs}}");
-      var d = "{{ Key }}";
-
+      var a = JSON.parse("{{ Image | escapejs}}");
+      var b = JSON.parse("{{Title | escapejs}}");
+      var c = 20;
+      if (a.length < 16) {
+        c = a.length;
+      }
       function articles() {
-        var m = document.getElementById("new");
+        var m = document.getElementById("news");
         var h = "<div>";
-        for (i = 0; i < b.length; i++) {
+        for (i = 0; i < c; i++) {
+          if ((i % 4 == 0) & (i != 0)) {
+            h += "</div>";
+            m.insertAdjacentHTML("beforeend", h);
+            h = "<div>";
+          }
+          k = a[i];
           s = "";
           q = "";
+          if (b[i].length <= 54) {
+            s = "<br>";
+          }
+          if (b[i].length >= 65) {
+            q = "...";
+          }
+          d = "<img src=" + k + " width=200px height=150px>";
 
           title =
             "<a href='/article?Noice=" +
             i +
-            "&keyword=" +
-            d +
-            "'/a>" +
-            b[i] +
+            "&nation=True' /a>" +
+            b[i].substring(0, 65) +
             q +
             s +
             " </div><br> ";
-          f =
-            "<img src='" +
-            u[i] +
-            "' width=100px height=100px> " +
-            "<div class='separator'> " +
-            " " +
-            title;
+          f = "<div class='arts'>" + d + " " + title;
           h += f;
-          h += "</div>" + "  <div class='thupid'> </div> ";
-          m.insertAdjacentHTML("beforeend", h);
-          h = "<div>";
         }
       }
     </script>
@@ -99,37 +103,45 @@
               <li><a href="\trending">Trending</a></li>
               <li><a href="\nation">Nation</a></li>
               <li>
-                <form action="search">
-                  <div class="search">
+                <div class="search">
+                  <form action="search">
                     <button>
                       <i class="fa fa-search"></i>
                     </button>
+
                     <input
                       type="search"
                       placeholder="Enter keyword"
                       name="keyword"
+                      autocomplete="off"
                     />
-                  </div>
-                </form>
+                  </form>
+                </div>
               </li>
               <li>
                 <div class="opt">
                   <button class="drp">Location</button>
                   <div class="cont">
-                    <a href="#" class="link"> Australia </a>
-                    <a href="#" class="link"> Brazil </a>
-                    <a href="#" class="link"> China </a>
-                    <a href="#" class="link"> France </a>
-                    <a href="#" class="link"> Germany </a>
-                    <a href="#" class="link"> India </a>
-                    <a href="#" class="link"> Italy </a>
-                    <a href="#" class="link"> Japan </a>
-                    <a href="#" class="link"> Russia </a>
-                    <a href="#" class="link"> Saudi Arabia </a>
-                    <a href="#" class="link"> Singapore </a>
-                    <a href="#" class="link"> South Africa </a>
-                    <a href="#" class="link"> United Kingdom </a>
-                    <a href="#" class="link"> United States </a>
+                    <a href="/countries?loc=Australia" class="link"
+                      >Australia</a
+                    >
+                    <a href="/countries?loc=Brazil" class="link">Brazil</a>
+                    <a href="/countries?loc=China" class="link">China</a>
+                    <a href="/countries?loc=France" class="link">France</a>
+                    <a href="/countries?loc=Germany" class="link">Germany</a>
+                    <a href="/countries?loc=India" class="link">India</a>
+                    <a href="/countries?loc=Italy" class="link">Italy</a>
+                    <a href="/countries?loc=Japan" class="link">Japan</a>
+                    <a href="/countries?loc=Russia" class="link">Russia</a>
+                    <a href="/countries?loc=Saudi Arabia" class="link"
+                      >Saudi Arabia</a
+                    >
+                    <a href="/countries?loc=United Kingdom" class="link"
+                      >United Kingdom</a
+                    >
+                    <a href="/countries?loc=United states" class="link"
+                      >United states</a
+                    >
                   </div>
                 </div>
               </li>
@@ -160,7 +172,7 @@
       </div>
     </header>
 
-    <article id="new"></article>
+    <article id="news"></article>
     <script>
       articles();
     </script>

@@ -42,7 +42,7 @@ def descending(keyword):
     COUNT=[]
     news1=[]
     h=[]
-    print(len(c),len(k))
+    
     for i in range(len(k)):
         if keyword in k[i].lower():
             count=(k[i].lower()).count(keyword)
@@ -52,6 +52,28 @@ def descending(keyword):
             h.append(c[i])
     
     return bubbleSort(COUNT,news1),h
+def Trend(x):
+    title=[]
+    k=[]
+    c=[]
+    for i in x:
+        for j in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
+            with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+'.csv','r',encoding="utf-8",errors="ignore") as file:
+                file_reader=csv.reader(file)
+                ctr=0
+                for line in file_reader:
+                    
+                    if line!=[]:
+                        if ctr==i:
+                            for j in range(len(line)):
+                                if j%2==0:
+                                    if (line[j]).split("\n")[0] not in title:
+                                        title+=[(line[j]).split("\n")[0]]
+                                        k+=["\n".join((line[j].split("\n"))[1:])]
+                                        if j+1!=len(line):
+                                            c+=[line[j+1]]
+                        ctr+=1
+    return title,c,k
 def image(x):
     c = []
     d = []
@@ -333,34 +355,75 @@ def articles(request):
 
     if request.user.is_authenticated:
         try:
-            k=(request.GET["Noice"]) 
-            confirmation=request.GET["world"]
-            
-            new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
-            c,d,e=art(new_path)
-            r=d[int(k)]
-            c=c[int(k)]
-            e=e[int(k)]
-            e=e.replace("\n","<br>")
-            r=json.dumps(r)
-            c=json.dumps(c)
-            e=json.dumps(e)
-            return render(request,"article.html",{"Title":r,"Image":c,"Art":e})
+            try:
+                k=(request.GET["Noice"]) 
+                try:
+                    confirmation=request.GET["world"]
+                    confirmation="World"
+                except:
+                    confirmation=request.GET["loc"]
+                
+                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+confirmation+".csv"
+                c,d,e=art(new_path)
+                r=d[int(k)]
+                c=c[int(k)]
+                e=e[int(k)]
+                e=e.replace("\n","<br>")
+                r=json.dumps(r)
+                c=json.dumps(c)
+                e=json.dumps(e)
+                return render(request,"article.html",{"Title":r,"Image":c,"Art":e})
+            except:
+                k=int(request.GET["Noice"])
+                d=request.GET["keyword"]
+                m,s=descending(d)
+                s=s[k]
+                content=m[k].split("\n")
+                title=content[0]
+                arti="\n".join(content[1:])
+                
+                
+                searches=False
+                arti=arti.replace("\n","<br>")
+                return render(request,"article.html",{"Title":json.dumps(title),"Image":json.dumps(s),"Art":json.dumps(arti)})
         except:
-            k=int(request.GET["Noice"])
-            d=request.GET["keyword"]
-            m,s=descending(d)
-            s=s[k]
-            content=m[k].split("\n")
-            title=content[0]
-            arti="\n".join(content[1:])
-            
-            
-            searches=False
-            arti=arti.replace("\n","<br>")
-            return render(request,"article.html",{"Title":json.dumps(title),"Image":json.dumps(s),"Art":json.dumps(arti)})
-            
-    
+            try:
+                U=userinfo.objects.get(uname=request.user.username)
+                j=U.genres
+                p=j.split(" ")
+                k=[]
+                for i in p:
+                    if i=="Sports":
+                        k+=[0]
+                    elif i=="Business":
+                        k+=[1]
+                    elif i=="Health":
+                        k+=[2]
+                    elif i=="Entertainment":
+                        k+=[3]
+                    elif i=="Science":
+                        k+=[4]
+                    elif i=="Technology":
+                        k+=[5]
+                d=request.GET["trending"]
+                m=int(request.GET["Noice"])
+                title,image,s=Trend(k)
+                title=json.dumps(title[m])
+                image=json.dumps(image[m])
+                s=json.dumps(s[m])
+                return render(request,"article.html",{"Title":title,"Image":image,"Art":s})
+            except:
+                U=userinfo.objects.get(uname=request.user.username)
+                j=U.location
+                k=int(request.GET["Noice"])
+                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+".csv"
+                c,d,e=art(new_path)
+                c=json.dumps(c[k])
+                d=json.dumps(d[k])
+                e=json.dumps(e[k])
+                return render(request,"article.html",{"Title":d,"Image":c,"Art":e})   
+                                    
+        
     else:
         return redirect("/",permanent=True)
 def search(request):
@@ -380,7 +443,45 @@ def search(request):
         s=json.dumps(s)
         
         return render(request,"search.html",{"title":j,"image":s,"Key":k})
+def trending(request):
+    U=userinfo.objects.get(uname=request.user.username)
+    j=U.genres
+    p=j.split(" ")
+    k=[]
+    for i in p:
+        if i=="Sports":
+            k+=[0]
+        elif i=="Business":
+            k+=[1]
+        elif i=="Health":
+            k+=[2]
+        elif i=="Entertainment":
+            k+=[3]
+        elif i=="Science":
+            k+=[4]
+        elif i=="Technology":
+            k+=[5]
+   
+    title,image,s=Trend(k)
+    title=json.dumps(title)
+    image=json.dumps(image)
+    return render(request,"trending.html",{"title":title,"image":image})
             
-            
-
+def nation(request):
+    U=userinfo.objects.get(uname=request.user.username)
+    j=U.location
+    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+".csv"
+    c,d=image(new_path)
+    c=json.dumps(c)
+    d=json.dumps(d)
+    return render(request,"nation.html",{"Title":d,"Image":c})   
+def countries(request):
+    p=request.GET["loc"]
+    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+p+".csv"
+    c,d=image(new_path)
+    c=json.dumps(c)
+    d=json.dumps(d)
+    return render(request,"countries.html",{"title":d,"image":c,"Loc":p})
+    
+        
 # Create your views here.

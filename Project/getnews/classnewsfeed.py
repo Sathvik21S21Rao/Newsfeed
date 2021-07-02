@@ -75,13 +75,14 @@ class newsfeed:
 			for i in html:
 				r+=i.text
 			s=[]
-			end=['copyright','sign up to start','market data powered by','©','advertisement','for more sports updates','for more updates',]
-			start=["Thanks for contacting us. We've received your submission.","AdvertisementSupported byAdvertisement","CBS Sports is a registered trademark of CBS Broadcasting Inc. Commissioner.com is a registered trademark of CBS Interactive Inc",]
+			end=['copyright','sign up to start','market data powered by','©','advertisement','for more sports updates','for more updates',"We’re sorry, this service is currently unavailable. Please try again later."]
+			start=["Jump to navigation","Get The New Paper on your phone with the free TNP app. Download from the Apple App Store or Google Play Store now","Thanks for contacting us. We've received your submission.","AdvertisementSupported byAdvertisement","CBS Sports is a registered trademark of CBS Broadcasting Inc. Commissioner.com is a registered trademark of CBS Interactive Inc",]+end
 
 
 			for j in start:
 				if j in r.lower():
 					r=r.replace(j,'')
+			
 
 			if len(r)<200 or Title[y][Title[y].rfind('-'):] == " CNBCTV18" or Title[y][Title[y].rfind('-'):].lower() == " abc news" or Title[y][Title[y].rfind('-'):]=="  Los Angeles County":
 				Title.pop(y)
