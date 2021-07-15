@@ -38,45 +38,43 @@
       };
     </script>
     <script>
-      
-        var b = JSON.parse("{{title | escapejs}}");
-        var u = JSON.parse("{{image | escapejs}}");
-        var d = "{{ Key }}";
-  
-        function articles() {
-          var m = document.getElementById("new");
-          var h = "<div>";
-          for (i = 0; i < b.length; i++) {
-            s = "";
-            q = "";
-  
-            title =
-              "<a href='/article?Noice=" +
-              i +
-              "&trending=True"+
-              "'/a>" +
-              b[i] +
-              q +
-              s +
-              " </div><br> ";
-            f =
-              "<img src='" +
-              u[i] +
-              "' width=100px height=100px> " +
-              "<div class='separator'> " +
-              " " +
-              title;
-            h += f;
-            h += "</div>" + "  <div class='thupid'> </div> ";
-            m.insertAdjacentHTML("beforeend", h);
-            h = "<div>";
-          }
+      var b = JSON.parse("{{title | escapejs}}");
+      var u = JSON.parse("{{image | escapejs}}");
+      var d = "{{ Key }}";
+
+      function articles() {
+        var m = document.getElementById("new");
+        var h = "<div>";
+        for (i = 0; i < b.length; i++) {
+          s = "";
+          q = "";
+
+          title =
+            "<a href='/article?Noice=" +i+"&trending=True"+
+            "'/a>" +
+            b[i] +
+            q +
+            s;
+          f =
+            "<div class='separator'> " +
+            " " +
+            "<img src='" +
+            u[i] +
+            "' width=100px height=100px> " +
+            " " +
+            title 
+            +" </div> ";
+          h += f;
+          h += "</div>";
+          m.insertAdjacentHTML("beforeend", h);
+          h = "<div>";
         }
+      }
     </script>
   </head>
   <style>
     .p {
-      font-size: x-large;
+     
       font-style: oblique;
     }
   </style>
@@ -118,20 +116,26 @@
                 <div class="opt">
                   <button class="drp">Location</button>
                   <div class="cont">
-                    <a href="#" class="link"> Australia </a>
-                    <a href="#" class="link"> Brazil </a>
-                    <a href="#" class="link"> China </a>
-                    <a href="#" class="link"> France </a>
-                    <a href="#" class="link"> Germany </a>
-                    <a href="#" class="link"> India </a>
-                    <a href="#" class="link"> Italy </a>
-                    <a href="#" class="link"> Japan </a>
-                    <a href="#" class="link"> Russia </a>
-                    <a href="#" class="link"> Saudi Arabia </a>
-                    <a href="#" class="link"> Singapore </a>
-                    <a href="#" class="link"> South Africa </a>
-                    <a href="#" class="link"> United Kingdom </a>
-                    <a href="#" class="link"> United States </a>
+                    <a href="/countries?loc=Australia" class="link"
+                    >Australia</a
+                  >
+                  <a href="/countries?loc=Brazil" class="link">Brazil</a>
+                  <a href="/countries?loc=China" class="link">China</a>
+                  <a href="/countries?loc=France" class="link">France</a>
+                  <a href="/countries?loc=Germany" class="link">Germany</a>
+                  <a href="/countries?loc=India" class="link">India</a>
+                  <a href="/countries?loc=Italy" class="link">Italy</a>
+                  <a href="/countries?loc=Japan" class="link">Japan</a>
+                  <a href="/countries?loc=Russia" class="link">Russia</a>
+                  <a href="/countries?loc=Saudi Arabia" class="link"
+                    >Saudi Arabia</a
+                  >
+                  <a href="/countries?loc=United Kingdom" class="link"
+                    >United Kingdom</a
+                  >
+                  <a href="/countries?loc=United states" class="link"
+                    >United states</a
+                  >
                   </div>
                 </div>
               </li>
@@ -158,7 +162,10 @@
           </nav>
         </div>
         </div>
+        <h2 align="center" class="p">Trending</h2>
+        
         <article id="new"></article>
+        
         <script>
           articles();
         </script>

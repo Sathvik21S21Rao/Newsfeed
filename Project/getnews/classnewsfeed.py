@@ -75,16 +75,16 @@ class newsfeed:
 			for i in html:
 				r+=i.text
 			s=[]
-			end=['copyright','sign up to start','market data powered by','©','advertisement','for more sports updates','for more updates',"We’re sorry, this service is currently unavailable. Please try again later."]
-			start=["Jump to navigation","Get The New Paper on your phone with the free TNP app. Download from the Apple App Store or Google Play Store now","Thanks for contacting us. We've received your submission.","AdvertisementSupported byAdvertisement","CBS Sports is a registered trademark of CBS Broadcasting Inc. Commissioner.com is a registered trademark of CBS Interactive Inc",]+end
+			end=['copyright','sign up to start','market data powered by','©','advertisement','for more sports updates','for more updates',"We’re sorry, this service is currently unavailable. Please try again later.".lower()]
+			start=["Fox News Flash top headlines are here.","Check out what's clicking on Foxnews.com.","Permission required for reproduction.","Jump to navigation","Get The New Paper on your phone with the free TNP app. Download from the Apple App Store or Google Play Store now","Thanks for contacting us. We've received your submission.","AdvertisementSupported byAdvertisement","CBS Sports is a registered trademark of CBS Broadcasting Inc. Commissioner.com is a registered trademark of CBS Interactive Inc",]+end
 
 
 			for j in start:
-				if j in r.lower():
+				if j.lower() in r.lower():
 					r=r.replace(j,'')
 			
 
-			if len(r)<200 or Title[y][Title[y].rfind('-'):] == " CNBCTV18" or Title[y][Title[y].rfind('-'):].lower() == " abc news" or Title[y][Title[y].rfind('-'):]=="  Los Angeles County":
+			if len(r)<200 or Title[y][Title[y].rfind('-'):] == " CNBCTV18" or Title[y][Title[y].rfind('-'):] == " ABC News" or Title[y][Title[y].rfind('-'):]==" Los Angeles County":
 				Title.pop(y)
 				continue
 			
@@ -93,7 +93,10 @@ class newsfeed:
 			w=soup2.figure
 			m=None
 			if w!=None:
-				m=w.find("img")
+				if w.picture!=None:
+					m=w.picture.find("img")
+				if m==None:
+					m=w.find("img")
 			P=""
 			if m!=None:
 				P=m.get("src")

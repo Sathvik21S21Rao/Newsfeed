@@ -49,25 +49,18 @@
           s = "";
           q = "";
 
-          title =
-            "<a href='/article?Noice=" +
-            i +
-            "&loc=" +
-            d +
-            "'/a>" +
-            b[i] +
-            q +
-            s +
-            " </div><br> ";
+          title = "<a href='/article?Noice=" + i + "&loc=" + d + "'/a>" + b[i];
           f =
+            "<div class='separator'> " +
+            " " +
             "<img src='" +
             u[i] +
             "' width=100px height=100px> " +
-            "<div class='separator'> " +
             " " +
-            title;
+            title +
+            " </div> ";
           h += f;
-          h += "</div>" + "  <div class='thupid'> </div> ";
+          h += "</div>";
           m.insertAdjacentHTML("beforeend", h);
           h = "<div>";
         }
@@ -76,7 +69,6 @@
   </head>
   <style>
     .p {
-      font-size: x-large;
       font-style: oblique;
     }
   </style>
@@ -165,6 +157,7 @@
         <!--social icons -->
       </div>
     </header>
+    <h2 align="center" class="p">{{Loc}}</h2>
 
     <article id="new"></article>
     <script>

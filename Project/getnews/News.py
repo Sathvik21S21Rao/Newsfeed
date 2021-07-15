@@ -21,7 +21,7 @@ for i in location:
 		a=newsfeed(j,i)
 		k=a.url()
 		news+=[k]
-	with open(i+'.csv','w',encoding="utf-8") as newfile:
+	with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+i+'.csv','w',encoding="utf-8") as newfile:
 		csv_writer=csv.writer(newfile)
 		csv_writer.writerows(news)
 news1=[]
@@ -29,7 +29,7 @@ for i in location:
 	a=newsfeed("World",i)
 	k=a.url()
 	news1+=[k]
-with open("World.csv","w",encoding="utf-8") as newfile:
+with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+"World.csv","w",encoding="utf-8") as newfile:
 	csv_writer=csv.writer(newfile)
 	csv_writer.writerows(news1)
 

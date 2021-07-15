@@ -17,7 +17,6 @@ font-family: 'Raleway', sans-serif;
 
 body {
   font-family: "Raleway", sans-serif;
-  background: #fff;
 }
 
 /* global styling */
@@ -28,7 +27,7 @@ ul {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: red;
 }
 
 hr {
@@ -44,7 +43,7 @@ hr {
   flex-direction: row;
   flex-wrap: wrap;
   margin: 0 auto;
-  background: #252525;
+  background: red;
   color: #fff;
   padding: 20px 30px;
 }
@@ -57,7 +56,7 @@ hr {
 /******* js related styling *****/
 
 .nav-bar {
-  background: #333;
+  background: red;
   height: auto;
 }
 
@@ -97,7 +96,7 @@ hr {
   background-color: #000;
 }
 .search button {
-  background-color: #333;
+  background-color: red;
   border: none;
   color: aliceblue;
   cursor: pointer;
@@ -124,7 +123,7 @@ hr {
 }
 
 .drp {
-  background-color: #333;
+  background-color: red;
   color: mintcream;
 
   font-size: large;
@@ -132,7 +131,7 @@ hr {
   cursor: pointer;
 }
 .drpbtn {
-  background-color: #333;
+  background-color: red;
   color: mintcream;
   font-size: large;
   border: none;
@@ -222,7 +221,7 @@ hr {
   font-size: large;
   border-radius: 5px;
   color: white;
-  background-color: #333;
+  background-color: red;
 
   border: none;
   outline: none;
@@ -238,17 +237,48 @@ hr {
 .arts {
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 200px;
+  height: 270px;
   flex-wrap: wrap;
   font-size: larger;
+  box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  color: black;
+  border-radius: 15px;
+  background-color: white;
+  align-self: center;
+  text-align: center;
+}
+.arts img {
+  padding: 0 0;
+  border-radius: 15px 15px 0 0;
+}
+.arts:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+
+  transform: scale(1.1);
+}
+.thupid1 a:link {
+  text-decoration: none;
 }
 .separator {
-  display: flex;
-  flex-direction: row;
-  width: fit-content;
+  border-radius: 15px;
+
+  margin: 5px;
+  width: 100%;
   flex-wrap: wrap;
   font-size: larger;
-  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.separator a:link {
+  text-decoration: none;
+  color: black;
+}
+
+.separator:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
 }
 
 /* banner */
@@ -488,7 +518,7 @@ main a:hover {
 /****** footer *****/
 
 footer {
-  background: #252525;
+  background: rgb(255, 17, 0);
   color: #f3f3f3;
   padding: 30px;
 }
@@ -595,7 +625,7 @@ footer > p {
 
   .navigation-container {
     display: flex;
-    background: #252525;
+    background: rgb(255, 17, 0);
     align-items: center;
     flex-wrap: wrap;
   }

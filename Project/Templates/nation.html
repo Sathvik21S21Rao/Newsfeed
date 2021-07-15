@@ -41,17 +41,18 @@
       var a = JSON.parse("{{ Image | escapejs}}");
       var b = JSON.parse("{{Title | escapejs}}");
       var c = 20;
+      var loc="{{ Loc }}"
       if (a.length < 16) {
         c = a.length;
       }
       function articles() {
         var m = document.getElementById("news");
-        var h = "<div>";
+        var h = "<div class='thupid1'>";
         for (i = 0; i < c; i++) {
           if ((i % 4 == 0) & (i != 0)) {
             h += "</div>";
             m.insertAdjacentHTML("beforeend", h);
-            h = "<div>";
+            h = "<div class='thupid1'>";
           }
           k = a[i];
           s = "";
@@ -64,23 +65,21 @@
           }
           d = "<img src=" + k + " width=200px height=150px>";
 
-          title =
+          title = b[i].substring(0, 65) + q + s + " </div><br> ";
+          f =
             "<a href='/article?Noice=" +
             i +
-            "&nation=True' /a>" +
-            b[i].substring(0, 65) +
-            q +
-            s +
-            " </div><br> ";
-          f = "<div class='arts'>" + d + " " + title;
+            "&loc="+loc+"' /a>" +
+            "<div class='arts'>" +
+            d +
+            " " +
+            title;
           h += f;
         }
       }
     </script>
-  </head>
   <style>
     .p {
-      font-size: x-large;
       font-style: oblique;
     }
   </style>
@@ -171,7 +170,8 @@
         <!--social icons -->
       </div>
     </header>
-
+    <h2 align="center" class="p">Nation</h2>
+    <br />
     <article id="news"></article>
     <script>
       articles();

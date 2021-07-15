@@ -23,9 +23,9 @@ def descending(keyword):
     k=[]
     c=[]
     title=[]
-    keyword=keyword.lower()
+    keyword=" "+keyword.lower()
     for i in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
-        with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+i+'.csv','r',encoding="utf-8",errors="ignore") as file:
+        with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+i+'.csv','r',encoding="utf-8",errors="ignore") as file:
             file_reader=csv.reader(file)
          
             
@@ -58,7 +58,7 @@ def Trend(x):
     c=[]
     for i in x:
         for j in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
-            with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+'.csv','r',encoding="utf-8",errors="ignore") as file:
+            with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+j+'.csv','r',encoding="utf-8",errors="ignore") as file:
                 file_reader=csv.reader(file)
                 ctr=0
                 for line in file_reader:
@@ -232,7 +232,7 @@ def login(request):
 
     if request.user.is_authenticated:
         
-        new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\World.csv"
+        new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\World.csv"
         c,d=image(new_path)
         c=json.dumps(c)
         d=json.dumps(d)
@@ -363,7 +363,7 @@ def articles(request):
                 except:
                     confirmation=request.GET["loc"]
                 
-                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+confirmation+".csv"
+                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+confirmation+".csv"
                 c,d,e=art(new_path)
                 r=d[int(k)]
                 c=c[int(k)]
@@ -416,7 +416,7 @@ def articles(request):
                 U=userinfo.objects.get(uname=request.user.username)
                 j=U.location
                 k=int(request.GET["Noice"])
-                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+".csv"
+                new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+j+".csv"
                 c,d,e=art(new_path)
                 c=json.dumps(c[k])
                 d=json.dumps(d[k])
@@ -470,14 +470,14 @@ def trending(request):
 def nation(request):
     U=userinfo.objects.get(uname=request.user.username)
     j=U.location
-    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+j+".csv"
+    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+j+".csv"
     c,d=image(new_path)
     c=json.dumps(c)
     d=json.dumps(d)
-    return render(request,"nation.html",{"Title":d,"Image":c})   
+    return render(request,"nation.html",{"Title":d,"Image":c,"Loc":j})   
 def countries(request):
     p=request.GET["loc"]
-    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\"+p+".csv"
+    new_path = "C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+p+".csv"
     c,d=image(new_path)
     c=json.dumps(c)
     d=json.dumps(d)
