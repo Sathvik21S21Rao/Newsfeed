@@ -64,7 +64,7 @@
               <div class="navigation-container">
                 <div class="top-head">
                   <div class="web-name">
-                    <h1>NEWS</h1>
+                    <img src="{% static 'logo.jpg' %}" width="100px" height="100px" />
                   </div>
                 </div>
                 <br>
@@ -137,7 +137,7 @@
             var a = JSON.parse("{{ Image | escapejs}}");
             var b = JSON.parse("{{ Art | escapejs}}");
             var c=JSON.parse("{{ Title | escapejs}}");
-
+            
             document.body.innerHTML+="<div class='def'> <p>"+c+"</p></div> "+"<div class='abc'><img align='center' src="+a+" width=500px  ><br>"+b+"<\div>"
         </script>
         <script>

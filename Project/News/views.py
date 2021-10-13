@@ -8,6 +8,8 @@ from difflib import SequenceMatcher
 import string
 import csv
 import json
+import smtplib,ssl
+import random
 csv.field_size_limit(100000000)
 searches=False
 def bubbleSort(arr,arr1):
@@ -19,6 +21,19 @@ def bubbleSort(arr,arr1):
 				arr[j], arr[j+1] = arr[j+1], arr[j]
 				arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
 	return arr1
+def otp():
+    return random.randint(1000,9999)
+def send_email(email):
+    port = 465  # For SSL
+    password = "eesatvik.blend"
+    context = ssl.create_default_context()
+    o=otp()
+    message=f"This is the otp {o}. Do not share with anyone!"
+    print(message)
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        server.login("nevzziffy@gmail.com", password)
+        server.sendmail("nevzziffy@gmail.com", email, message)
+    return o
 def descending(keyword):
     k=[]
     c=[]
@@ -141,7 +156,8 @@ def password_check(passwd,us):
     elif not any(char in SpecialSym for char in passwd):
         print('Password should have at least one of the symbols $@#')
         return False
-    elif SequenceMatcher(passwd.lower(),us.lower()).quick_ratio()>0.5:
+    elif SequenceMatcher(passwd.lower(),us.lower()).quick_ratio()>0.7:
+        print("abc")
         return False
     
     return True
@@ -245,17 +261,43 @@ def sign_up(request):
     return render(request,'sign_up.html')
 
 def genres(request):
-    global USER,b
+    global USER
+    global OTP
+    global b
     try:
+        m=int(request.POST["otp"])
+    except:
+        m=None
+    if request.user.is_authenticated:
+        b=True
+    elif  m==OTP:
+        username=USER["username"]
+        password=USER["password"]
+        email=USER["email"]
+        user=User.objects.create_user(username=username,password=password,email=email)
+        user.save()
+        USER.pop("password")
+        u=auth.authenticate(username=username,password=password)
+        auth.login(request,u)
         
+    else:
+        messages.error(request,"Otp is incorrect")
+        return redirect("/sign_up")
+    return render(request,"genres.html")
+def verify(request):
+    global USER,b,OTP
+    
+    try:
 
         username=request.POST['username']
         password=request.POST['psw']
         email=request.POST['email']
         loc=request.POST['location']
-        
+    except:
+        pass
+    else:
         if not password_check(password,username):
-            
+                
             messages.error(request,"Enter a stronger password")
             return redirect('/sign_up')
         elif emailverifier(email)==False:
@@ -268,28 +310,19 @@ def genres(request):
             messages.error(request,"Email already taken")
             return redirect('/sign_up')
  
-        
-        
-       
-        user=User.objects.create_user(username=username,password=password,email=email)
-        user.save()
+    try:
         USER["username"]=username
         USER["location"]=loc
-            
-        u=auth.authenticate(username=username,password=password)
-        if u:
-            print("abc")
-            auth.login(request,u)
-        else:
-            print("def")
-    
+        USER["password"]=password
+        USER["email"]=email
     except:
-        print(sys.exc_info)
-        b=True
+        pass
+ 
+        
+    OTP=send_email(USER['email'])
+    print(OTP)
     
-    
-    return render(request,"genres.html")
-
+    return render(request,"verify.html")
 
 def logout(request):
     auth.logout(request)
@@ -301,8 +334,10 @@ def changepass(request):
         new=request.POST["newpass"]
         user=User.objects.get(id=request.user.id)
         check=user.check_password(current)
+        username=user.username
+        print(username)
         if check:
-            if password_check(new):
+            if password_check(new,username):
                 user.set_password(new)
                 user.save()
                 messages.success(request,"Password successfully changes.")
@@ -482,6 +517,6 @@ def countries(request):
     c=json.dumps(c)
     d=json.dumps(d)
     return render(request,"countries.html",{"title":d,"image":c,"Loc":p})
-    
+
         
 # Create your views here.

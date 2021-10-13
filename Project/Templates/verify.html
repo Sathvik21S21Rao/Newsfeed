@@ -1,7 +1,7 @@
 {% load static %}
-
 <html>
   <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -9,49 +9,35 @@
       integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni"
       crossorigin="anonymous"
     />
-
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
     />
-    
+   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
     {% if messages %}
     {% for msg in messages %}
     <div class="alert alert-danger alert-dismissible fade show"  style="color: red;"> 
+      
         {{msg.message}}
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" style="color: red;">&times;</button>
       </div>
     {% endfor %}
   {% endif %}
+  
+ 
   </head>
   <style>
-    html,
     body {
       background-image: url("{% static 'background.jpg' %}");
       background-size: cover;
       background-repeat: no-repeat;
-      height:auto;
+      height: auto;
       margin: 0px;
       padding: 0px;
-    }
-    .pageRoot {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: fit-content;
-      flex-wrap: wrap;
-    }
-    .loginForm {
-      color: white;
-      width: fit-content;
-      padding: 20px;
-      font-size: large;
       
     }
     .header {
@@ -66,6 +52,20 @@
       height: fit-content;
       padding: 10px;
     }
+    .root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .otpform {
+      font-size: large;
+      color: white;
+      width: fit-content;
+      padding: 20px;
+    }
     .text {
       width: 100%;
       overflow: hidden;
@@ -75,69 +75,46 @@
       border: none;
       outline: none;
       background: none;
-      color:white;
+      color: white;
+    }
+   
+    .button {
+      background-color: gray;
+      font-size: medium;
+      color: white;
     }
   </style>
   <body>
-    <div class="header">
-      
-      <h1>NEWSIFY</h1>
-    </div>
-    <br />
-    <br />
-    <div class="pageRoot">
-      <div class="loginForm">
-        <form action="home" method="post">
+    
+
+    <div class="root">
+      <div class="otpform">
+        
+        <form action="genres" method="post">
           {% csrf_token %}
-          <div class="container">
-            <br />
-            <br />
-            <label for="uname"><b>Username</b></label>
-            <div class="text">
-              <i class="fa fa-user"></i>
-              <input
-                type="text"
-                placeholder="Enter Username"
-                autocomplete="off"
-                name="uname"
-                required
-              />
-            </div>
-            <br /><br />
 
-            <label for="psw"><b>Password</b></label>
-            <div class="text">
-              <i class="fa fa-lock"></i>
-              <input
-                type="password"
-                placeholder="Enter Password"
-               
-                name="psw"
-                required
-              />
-            </div>
-            <br /><br />
-
-            <button type="submit">Login</button><br />
-          </div>
-        </form>
-        <div class="container" style="text-align: right">
          
-            <div class="container" style="text-align: center">
-              <b>Not signed up? Create an account</b>
-              <a href="/sign_up">Sign Up</a>
-            </div>
-          </form>
-        </div>
+          <div class="text">
+            
+            <input
+              type="text"
+              placeholder="Enter otp"
+              size="30"
+              autocomplete="off"
+              name="otp"
+              required
+            />
+          </div>
+         
+          
+         
+          <br>
+          <button class="button" type="submit">Submit</button>
+        </form>
       </div>
     </div>
-    <footer>
-      <script>
-        if (window.history.replaceState) {
-          window.history.replaceState(null, null, window.location.href);
-        }
-      </script>
-    </footer>
     
+
+    </div>
   </body>
 </html>
