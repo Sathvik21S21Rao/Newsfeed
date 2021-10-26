@@ -12,15 +12,16 @@ import smtplib,ssl
 import random
 csv.field_size_limit(100000000)
 searches=False
-def bubbleSort(arr,arr1):
-	n = len(arr)
-	for i in range(n-1):
-   
-		for j in range(0, n-i-1):
-			if int(arr[j]) < arr[j+1] :
-				arr[j], arr[j+1] = arr[j+1], arr[j]
-				arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
-	return arr1
+def bubbleSort(arr,arr1,arr2):
+    n = len(arr)
+  
+    for i in range(n-1):
+        for j in range(0, n-1-i):
+            if arr[j] < arr[j+1] :
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
+                arr2[j],arr2[j+1]=arr2[j+1],arr2[j]
+    return arr1,arr2
 def otp():
     return random.randint(1000,9999)
 def send_email(email):
@@ -42,8 +43,6 @@ def descending(keyword):
     for i in ['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa',"United States","United Kingdom"]:
         with open("C:\\Users\\sathv\\ourwebsite\\Project\\getnews\\newscsv\\"+i+'.csv','r',encoding="utf-8",errors="ignore") as file:
             file_reader=csv.reader(file)
-         
-            
             for line in file_reader:
                 if line!=[]:
                     for j in range(len(line)):
@@ -66,7 +65,7 @@ def descending(keyword):
             news1.append(k[i])
             h.append(c[i])
     
-    return bubbleSort(COUNT,news1),h
+    return bubbleSort(COUNT,news1,h)
 def Trend(x):
     title=[]
     k=[]
@@ -474,8 +473,10 @@ def search(request):
             
             j+=[m[0]]
             searches=True
+        
         j=json.dumps(j)
         s=json.dumps(s)
+        
         
         return render(request,"search.html",{"title":j,"image":s,"Key":k})
 def trending(request):
