@@ -85,7 +85,7 @@ class newsfeed:
 						r=r.replace(j,'')
 				
 
-				if len(r)<200 or Title[y][Title[y].rfind('-'):] == " CNBCTV18" or Title[y][Title[y].rfind('-'):] == " ABC News" or Title[y][Title[y].rfind('-'):]==" Los Angeles County":
+				if len(r)<200 or  "CNBCTV18" in Title[y] or "ABC News" in Title[y]  or "Los Angeles County" in Title[y]:
 					Title.pop(y)
 					continue
 				

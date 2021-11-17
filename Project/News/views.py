@@ -217,12 +217,13 @@ def login(request):
                 k.save()  
             USER={"username":"","location":"","genres":""}
             
-            
+          
         except:
             pass
 
     if request.user.is_authenticated:
         if b:
+            
             U=userinfo.objects.get(uname=request.user.username)
             k=U.genres
             d={}
@@ -273,6 +274,7 @@ def genres(request):
         username=USER["username"]
         password=USER["password"]
         email=USER["email"]
+        
         user=User.objects.create_user(username=username,password=password,email=email)
         user.save()
         USER.pop("password")
