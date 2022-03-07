@@ -3,7 +3,6 @@ from django.contrib import messages
 import requests
 from django.contrib.auth.models import User,auth
 from .models import Userverification as userinfo
-import sys
 from difflib import SequenceMatcher
 import string
 import csv

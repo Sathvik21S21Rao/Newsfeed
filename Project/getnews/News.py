@@ -2,15 +2,7 @@
 from classnewsfeed import newsfeed
 import csv
 
-def bubbleSort(arr,arr1):
-	n = len(arr)
-	for i in range(n-1):
-   
-		for j in range(0, n-i-1):
-			if int(arr[j]) < arr[j+1] :
-				arr[j], arr[j+1] = arr[j+1], arr[j]
-				arr1[j],arr1[j+1]=arr1[j+1],arr1[j]
-	return arr1
+
 topics=['Sports','Business','Health','Entertainment','Science','Technology','Nation']
 location=['Australia','Brazil','China','France','Germany','India','Italy','Japan','Russia','Saudi Arabia','Singapore','South Africa','United Kingdom','United States']
 
